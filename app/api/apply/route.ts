@@ -3,8 +3,9 @@
 // Called after the agent has tailored the CV
 
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase'
-import { sendApplicationEmail, testEmailConnection } from '@/lib/emailSender'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
+import { sendApplicationEmail, sendUserNotification, testEmailConnection } from '@/lib/emailSender'
+import { decrypt } from '@/lib/crypto'
 
 export async function POST(req: NextRequest) {
   const supabase = createServerSupabaseClient()
@@ -32,9 +33,10 @@ export async function POST(req: NextRequest) {
 
   // Test connection mode
   if (action === 'test') {
+    const decryptedPassword = decrypt(profile.email_app_password)
     const result = await testEmailConnection(
       profile.email_address,
-      profile.email_app_password,
+      decryptedPassword,
       profile.email_provider as 'gmail' | 'outlook' | 'yahoo'
     )
     return NextResponse.json(result)
@@ -60,9 +62,10 @@ export async function POST(req: NextRequest) {
   }
 
   // Send the application email
+  const decryptedPassword = decrypt(profile.email_app_password)
   const result = await sendApplicationEmail({
     userEmail: profile.email_address,
-    userAppPassword: profile.email_app_password,
+    userAppPassword: decryptedPassword,
     userEmailProvider: (profile.email_provider || 'gmail') as 'gmail' | 'outlook' | 'yahoo',
     userName: profile.full_name || user.email!.split('@')[0],
     jobTitle: application.job_title,
@@ -84,11 +87,31 @@ export async function POST(req: NextRequest) {
       })
       .eq('id', applicationId)
 
+    // Send a separate "Application submitted" notification to the user
+    const notification = await sendUserNotification({
+      userEmail: profile.email_address,
+      userAppPassword: decryptedPassword,
+      userEmailProvider: (profile.email_provider || 'gmail') as 'gmail' | 'outlook' | 'yahoo',
+      userName: profile.full_name || user.email!.split('@')[0],
+      jobTitle: application.job_title,
+      company: application.company,
+      recruiterEmail: application.recruiter_email,
+      matchScore: application.match_score,
+    })
+
+    if (notification.success) {
+      await supabase
+        .from('applications')
+        .update({ user_notified_at: new Date().toISOString() })
+        .eq('id', applicationId)
+    }
+
     return NextResponse.json({
       success: true,
       sentTo: result.sentTo,
       sentFrom: result.sentFrom,
-      message: `Application sent to ${application.company}. A copy was sent to your inbox.`,
+      notified: notification.success,
+      message: `Application sent to ${application.company}. A confirmation email was sent to your inbox.`,
     })
   } else {
     return NextResponse.json({

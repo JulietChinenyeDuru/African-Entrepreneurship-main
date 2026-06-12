@@ -1,6 +1,6 @@
 // app/api/run/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
 import { runAgentPipeline } from '@/lib/agent'
 
 const PLAN_LIMITS: Record<string, number> = {

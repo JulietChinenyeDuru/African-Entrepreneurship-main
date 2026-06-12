@@ -1,7 +1,7 @@
 // app/api/checkout/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { createCheckoutSession } from '@/lib/stripe'
-import { createServerSupabaseClient } from '@/lib/supabase'
+import { createServerSupabaseClient } from '@/lib/supabase-server'
 
 const AFRICAN_COUNTRIES = ['NG','GH','KE','ZA','UG','TZ','RW','SN','CM','ET']
 
