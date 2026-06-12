@@ -111,14 +111,18 @@ export default function Dashboard() {
   const saveEmailSettings = async () => {
     if (!emailAddress || !appPassword) { setEmailStatus('Please fill in all fields.'); return }
     setEmailSaving(true)
-    await supabase.from('profiles').update({
-      email_provider: emailProvider,
-      email_address: emailAddress,
-      email_app_password: appPassword,
-      auto_apply_enabled: true,
-    }).eq('id', user.id)
-    setProfile((p: any) => ({ ...p, email_address: emailAddress, email_provider: emailProvider }))
-    setEmailStatus('✅ Email settings saved successfully.')
+    const res = await fetch('/api/email-settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ emailProvider, emailAddress, appPassword }),
+    })
+    const data = await res.json()
+    if (res.ok) {
+      setProfile((p: any) => ({ ...p, email_address: emailAddress, email_provider: emailProvider, auto_apply_enabled: true }))
+      setEmailStatus('✅ Email settings saved successfully.')
+    } else {
+      setEmailStatus(`❌ ${data.error || 'Failed to save settings.'}`)
+    }
     setEmailSaving(false)
   }
 
@@ -234,7 +238,7 @@ export default function Dashboard() {
                 <h3 style={{ fontSize: 16, fontWeight: 500, margin: '0 0 8px' }}>
                   {step === 'profile' ? 'Analysing your CV...' : step === 'jobs' ? 'Finding matching jobs...' : 'Tailoring your CV...'}
                 </h3>
-                <p style={{ fontSize: 13, color: '#888780', margin: 0 }}>Using Haiku AI — fast and cost-efficient</p>
+                <p style={{ fontSize: 13, color: '#888780', margin: 0 }}>Our AI is working on your application</p>
               </div>
             )}
 

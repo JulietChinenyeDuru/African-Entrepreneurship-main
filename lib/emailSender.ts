@@ -136,7 +136,7 @@ export async function sendApplicationEmail(
 
   try {
     // Create transporter with user's own email
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       ...SMTP_CONFIG[userEmailProvider],
       auth: {
         user: userEmail,
@@ -191,6 +191,81 @@ export async function sendApplicationEmail(
   }
 }
 
+// ── Send confirmation notification to the user ────────────────
+// Separate, friendly "Application submitted" email — distinct
+// from the BCC copy of the recruiter-facing email
+
+export async function sendUserNotification(params: {
+  userEmail: string
+  userAppPassword: string
+  userEmailProvider: 'gmail' | 'outlook' | 'yahoo'
+  userName: string
+  jobTitle: string
+  company: string
+  recruiterEmail: string
+  matchScore: number
+}): Promise<EmailResult> {
+  const {
+    userEmail, userAppPassword, userEmailProvider,
+    userName, jobTitle, company, recruiterEmail, matchScore,
+  } = params
+
+  try {
+    const transporter = nodemailer.createTransport({
+      ...SMTP_CONFIG[userEmailProvider],
+      auth: { user: userEmail, pass: userAppPassword },
+    })
+
+    const html = `
+<!DOCTYPE html>
+<html>
+<body style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.7;
+             color: #333; max-width: 500px; margin: 0 auto; padding: 24px;">
+  <div style="background:#E1F5EE; border-radius:8px; padding:16px 20px; margin-bottom:20px;">
+    <p style="margin:0; color:#085041; font-weight:bold; font-size:15px;">Application submitted</p>
+  </div>
+  <p>Hi ${userName.split(' ')[0]},</p>
+  <p>ApplyAI just submitted your application for:</p>
+  <div style="background:#F8F7F4; border-radius:8px; padding:14px 16px; margin:14px 0;">
+    <p style="margin:0 0 4px; font-weight:bold;">${jobTitle}</p>
+    <p style="margin:0; color:#5F5E5A;">${company}</p>
+    <p style="margin:8px 0 0; font-size:12px; color:#1D9E75;">Match score: ${matchScore}%</p>
+  </div>
+  <p style="font-size:12px; color:#888;">
+    Sent to: ${recruiterEmail}<br/>
+    Your tailored CV and cover letter were attached.
+  </p>
+  <p style="font-size:12px; color:#888; border-top:1px solid #eee; padding-top:14px; margin-top:20px;">
+    Track this application anytime at jobapp.best/dashboard
+  </p>
+</body>
+</html>`
+
+    const result = await transporter.sendMail({
+      from: `ApplyAI <${userEmail}>`,
+      to: userEmail,
+      subject: `Applied: ${jobTitle} at ${company}`,
+      html,
+    })
+
+    return {
+      success: true,
+      messageId: result.messageId,
+      sentTo: userEmail,
+      sentFrom: userEmail,
+      timestamp: new Date().toISOString(),
+    }
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.message,
+      sentTo: userEmail,
+      sentFrom: userEmail,
+      timestamp: new Date().toISOString(),
+    }
+  }
+}
+
 // ── Test email connection ─────────────────────────────────────
 
 export async function testEmailConnection(
@@ -199,7 +274,7 @@ export async function testEmailConnection(
   provider: 'gmail' | 'outlook' | 'yahoo'
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       ...SMTP_CONFIG[provider],
       auth: { user: email, pass: appPassword },
     })
