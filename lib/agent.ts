@@ -1,0 +1,292 @@
+// lib/agent.ts
+// ============================================================
+// ApplyAI complete agent pipeline
+// Profile → Jobs → Tailor CV → Find recruiter → Submit email
+// Uses cheap Haiku for 90% of tasks — see lib/models.ts
+// ============================================================
+
+import Anthropic from '@anthropic-ai/sdk'
+import { TASK_MODELS, MAX_TOKENS } from './models'
+
+const claude = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+
+// ── Types ────────────────────────────────────────────────────
+
+export interface AgentInput {
+  cv: string
+  role: string
+  location: string
+  salary?: string
+  level?: string
+}
+
+export interface JobMatch {
+  id: string
+  title: string
+  company: string
+  location: string
+  salary: string
+  description: string
+  url: string
+  matchScore: number
+  matchReason: string
+}
+
+export interface AgentResult {
+  profile: {
+    careerLevel: string
+    topSkills: string[]
+    suggestedRoles: string[]
+    atsScore: number
+    atsReason: string
+    quickWins: string[]
+    summary: string
+  }
+  topJob: JobMatch
+  allJobs: JobMatch[]
+  tailoredCv: string
+  coverLetter: string
+  atsKeywords: {
+    mustHave: string[]
+    technicalSkills: string[]
+    softSkills: string[]
+    powerPhrases: string[]
+    alreadyInCv: string[]
+  }
+  changesMade: string[]
+  recruiterEmail: string | null
+}
+
+// ── Helper ───────────────────────────────────────────────────
+
+function parseJson(text: string, fallback: any = {}) {
+  try {
+    return JSON.parse(text.replace(/```json|```/g, '').trim())
+  } catch {
+    return fallback
+  }
+}
+
+function getText(response: any): string {
+  return response.content?.[0]?.type === 'text'
+    ? response.content[0].text.replace(/```json|```/g, '').trim()
+    : ''
+}
+
+// ── Step 1: Profile Analysis ─────────────────────────────────
+// Uses Sonnet — needs real reasoning to understand career level
+
+export async function analyseProfile(input: AgentInput) {
+  const response = await claude.messages.create({
+    model: TASK_MODELS.profileAnalysis,     // Sonnet
+    max_tokens: MAX_TOKENS.profileAnalysis,
+    system: `You are ApplyAI's profile analysis agent.
+Return ONLY valid JSON — no markdown, no explanation.
+{
+  "career_level": "Junior|Mid|Senior|Principal",
+  "years_experience": <int>,
+  "top_skills": ["skill",...],
+  "suggested_roles": ["role",...],
+  "ats_score": <int 1-10>,
+  "ats_reason": "one sentence",
+  "quick_wins": ["tip1","tip2"],
+  "summary": "2-3 sentence career summary"
+}`,
+    messages: [{
+      role: 'user',
+      content: `Target: ${input.role} in ${input.location}, ${input.level || 'any level'}, salary: ${input.salary || 'open'}\n\nCV:\n${input.cv}`,
+    }],
+  })
+  return parseJson(getText(response))
+}
+
+// ── Step 2: Find Jobs ────────────────────────────────────────
+// Uses Haiku — straightforward generation task
+
+export async function findJobs(profile: any, input: AgentInput): Promise<JobMatch[]> {
+  const response = await claude.messages.create({
+    model: TASK_MODELS.jobMatching,         // Haiku
+    max_tokens: MAX_TOKENS.jobMatching,
+    system: `You are ApplyAI's job discovery agent.
+Generate 5 realistic UK job listings matching this candidate.
+Return ONLY valid JSON array — no markdown.
+[{
+  "id": "job-1",
+  "title": "...",
+  "company": "real UK company",
+  "location": "...",
+  "salary": "£XX,000–£XX,000",
+  "description": "2-3 sentence description",
+  "url": "https://reed.co.uk/jobs/example",
+  "match_score": <int 70-99>,
+  "match_reason": "one sentence"
+}]`,
+    messages: [{
+      role: 'user',
+      content: `Profile: ${JSON.stringify(profile)}\nRole: ${input.role}\nLocation: ${input.location}\nSalary: ${input.salary || 'open'}`,
+    }],
+  })
+  const jobs = parseJson(getText(response), [])
+  return jobs.map((j: any) => ({
+    id: j.id,
+    title: j.title,
+    company: j.company,
+    location: j.location,
+    salary: j.salary,
+    description: j.description,
+    url: j.url,
+    matchScore: j.match_score,
+    matchReason: j.match_reason,
+  }))
+}
+
+// ── Step 3: Tailor CV ────────────────────────────────────────
+// Uses Haiku for all sub-tasks — cost saving is significant here
+
+export async function tailorCV(cv: string, job: JobMatch) {
+  const jobContext = `Role: ${job.title} at ${job.company}\nLocation: ${job.location}\nSalary: ${job.salary}\nDescription: ${job.description}`
+
+  // Run all 4 sub-tasks in parallel — saves time
+  const [cvRes, clRes, kwRes, chRes] = await Promise.all([
+
+    // Tailored CV — Haiku
+    claude.messages.create({
+      model: TASK_MODELS.cvTailoring,       // Haiku
+      max_tokens: MAX_TOKENS.cvTailoring,
+      system: `You are an expert CV writer and ATS specialist.
+Rewrite the CV for the target role. Mirror keywords from the job.
+Lead with most relevant experience. Rewrite summary for this role.
+Never invent facts. Use action verbs: Engineered, Deployed, Built, Led.
+Format: PROFESSIONAL SUMMARY | EXPERIENCE | SKILLS | EDUCATION
+Return ONLY the CV text — no preamble.`,
+      messages: [{ role: 'user', content: `${jobContext}\n\nOriginal CV:\n${cv}` }],
+    }),
+
+    // Cover letter — Haiku
+    claude.messages.create({
+      model: TASK_MODELS.coverLetter,       // Haiku
+      max_tokens: MAX_TOKENS.coverLetter,
+      system: `Write a concise 3-paragraph cover letter.
+Para 1: Why this role at this company excites you.
+Para 2: Your 2 strongest relevant achievements with numbers.
+Para 3: Forward-looking close — what you will bring.
+Start with impact not "I am writing to apply".
+Under 220 words. Sign: "Warm regards, [Your Name]"
+Return ONLY the letter text.`,
+      messages: [{ role: 'user', content: `${jobContext}\n\nBackground:\n${cv.slice(0, 600)}` }],
+    }),
+
+    // ATS keywords — Haiku
+    claude.messages.create({
+      model: TASK_MODELS.atsKeywords,       // Haiku
+      max_tokens: MAX_TOKENS.atsKeywords,
+      system: `Extract ATS keywords. Return ONLY JSON:
+{"must_have":[],"technical_skills":[],"soft_skills":[],"power_phrases":[],"already_in_cv":[]}`,
+      messages: [{ role: 'user', content: `Job: ${job.title} at ${job.company}\n${job.description}\nCV: ${cv.slice(0, 500)}` }],
+    }),
+
+    // Changes summary — Haiku
+    claude.messages.create({
+      model: TASK_MODELS.changesSummary,    // Haiku
+      max_tokens: MAX_TOKENS.changesSummary,
+      system: `List 4 key CV changes as a JSON string array. Max 10 words each. Return ONLY JSON array.`,
+      messages: [{ role: 'user', content: `Role: ${job.title}\nCV snippet: ${cv.slice(0, 400)}` }],
+    }),
+  ])
+
+  const kw = parseJson(getText(kwRes))
+  const atsKeywords = {
+    mustHave: kw.must_have || [],
+    technicalSkills: kw.technical_skills || [],
+    softSkills: kw.soft_skills || [],
+    powerPhrases: kw.power_phrases || [],
+    alreadyInCv: kw.already_in_cv || [],
+  }
+
+  let changesMade: string[] = []
+  try { changesMade = JSON.parse(getText(chRes)) } catch {}
+
+  return {
+    tailoredCv: getText(cvRes),
+    coverLetter: getText(clRes),
+    atsKeywords,
+    changesMade,
+  }
+}
+
+// ── Step 4: Find Recruiter Email ─────────────────────────────
+// Uses Haiku — simple lookup task
+
+export async function findRecruiterEmail(
+  jobTitle: string,
+  company: string,
+  jobUrl: string,
+  jobDescription: string
+): Promise<string | null> {
+
+  // First — check if email is in job description
+  const emailRegex = /[\w.-]+@[\w.-]+\.\w+/g
+  const emailsInDesc = jobDescription.match(emailRegex)
+  if (emailsInDesc?.length) return emailsInDesc[0]
+
+  // Second — ask Haiku to guess the careers email
+  const response = await claude.messages.create({
+    model: TASK_MODELS.recruiterFinder,     // Haiku
+    max_tokens: MAX_TOKENS.recruiterFinder,
+    system: `Given a company and job, return the most likely careers email address.
+Return ONLY the email address. If unknown return "unknown".`,
+    messages: [{
+      role: 'user',
+      content: `Company: ${company}\nJob: ${jobTitle}\nURL: ${jobUrl}`,
+    }],
+  })
+
+  const email = getText(response)
+  if (email && email !== 'unknown' && email.includes('@')) return email
+
+  // Third — common pattern fallback
+  const domain = company.toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/(ltd|limited|plc|inc|uk)/g, '')
+  return `careers@${domain}.co.uk`
+}
+
+// ── Full Pipeline ─────────────────────────────────────────────
+
+export async function runAgentPipeline(input: AgentInput): Promise<AgentResult> {
+  // Step 1 — Profile (Sonnet)
+  const profileRaw = await analyseProfile(input)
+  const profile = {
+    careerLevel: profileRaw.career_level || 'Mid',
+    topSkills: profileRaw.top_skills || [],
+    suggestedRoles: profileRaw.suggested_roles || [],
+    atsScore: profileRaw.ats_score || 5,
+    atsReason: profileRaw.ats_reason || '',
+    quickWins: profileRaw.quick_wins || [],
+    summary: profileRaw.summary || '',
+  }
+
+  // Step 2 — Jobs (Haiku)
+  const allJobs = await findJobs(profileRaw, input)
+  if (!allJobs.length) throw new Error('No jobs found for your profile.')
+  const topJob = allJobs[0]
+
+  // Step 3 — Tailor CV (Haiku x4 in parallel)
+  const { tailoredCv, coverLetter, atsKeywords, changesMade } = await tailorCV(input.cv, topJob)
+
+  // Step 4 — Find recruiter email (Haiku)
+  const recruiterEmail = await findRecruiterEmail(
+    topJob.title, topJob.company, topJob.url, topJob.description
+  )
+
+  return {
+    profile,
+    topJob,
+    allJobs,
+    tailoredCv,
+    coverLetter,
+    atsKeywords,
+    changesMade,
+    recruiterEmail,
+  }
+}
