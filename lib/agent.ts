@@ -7,6 +7,7 @@
 
 import Anthropic from '@anthropic-ai/sdk'
 import { TASK_MODELS, MAX_TOKENS } from './models'
+import { searchAllJobBoards, NormalisedJob } from './jobSources'
 
 const claude = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -101,25 +102,80 @@ Return ONLY valid JSON — no markdown, no explanation.
 }
 
 // ── Step 2: Find Jobs ────────────────────────────────────────
-// Uses Haiku — straightforward generation task
+// Searches Reed + Adzuna + Jooble for REAL jobs, then uses
+// Haiku to score each against the candidate profile
 
 export async function findJobs(profile: any, input: AgentInput): Promise<JobMatch[]> {
+  // Search real job boards in parallel
+  const { jobs: realJobs, sources } = await searchAllJobBoards(
+    input.role || profile.suggested_roles?.[0] || 'Software Engineer',
+    input.location || 'United Kingdom',
+    10
+  )
+
+  // Fallback — if all 3 APIs returned nothing (e.g. no keys set yet),
+  // generate realistic placeholder jobs so the app still works
+  if (realJobs.length === 0) {
+    return generateFallbackJobs(profile, input)
+  }
+
+  // Score each real job against the candidate profile using Haiku
+  const jobsSummary = realJobs.map(j => ({
+    id: j.id, title: j.title, company: j.company,
+    description: j.description.slice(0, 200),
+  }))
+
   const response = await claude.messages.create({
     model: TASK_MODELS.jobMatching,         // Haiku
+    max_tokens: MAX_TOKENS.jobMatching,
+    system: `You are ApplyAI's job matching agent.
+Score how well each job matches the candidate profile.
+Return ONLY valid JSON array — no markdown.
+[{ "id": "<job_id>", "match_score": <int 0-100>, "match_reason": "one sentence" }]`,
+    messages: [{
+      role: 'user',
+      content: `Candidate profile: ${JSON.stringify(profile)}\n\nJobs to score:\n${JSON.stringify(jobsSummary)}`,
+    }],
+  })
+
+  const scores: any[] = parseJson(getText(response), [])
+  const scoreMap = new Map(scores.map(s => [s.id, s]))
+
+  const scored: JobMatch[] = realJobs.map(j => {
+    const score = scoreMap.get(j.id)
+    return {
+      id: j.id,
+      title: j.title,
+      company: j.company,
+      location: j.location,
+      salary: j.salary,
+      description: j.description,
+      url: j.url,
+      matchScore: score?.match_score ?? 75,
+      matchReason: score?.match_reason ?? `Found via ${j.source}`,
+    }
+  })
+
+  // Sort by match score, best first
+  scored.sort((a, b) => b.matchScore - a.matchScore)
+  return scored
+}
+
+// ── Fallback — used only if Reed/Adzuna/Jooble keys are missing ──
+
+async function generateFallbackJobs(profile: any, input: AgentInput): Promise<JobMatch[]> {
+  const response = await claude.messages.create({
+    model: TASK_MODELS.jobMatching,
     max_tokens: MAX_TOKENS.jobMatching,
     system: `You are ApplyAI's job discovery agent.
 Generate 5 realistic UK job listings matching this candidate.
 Return ONLY valid JSON array — no markdown.
 [{
-  "id": "job-1",
-  "title": "...",
-  "company": "real UK company",
-  "location": "...",
-  "salary": "£XX,000–£XX,000",
+  "id": "job-1", "title": "...", "company": "real UK company",
+  "location": "...", "salary": "£XX,000–£XX,000",
   "description": "2-3 sentence description",
   "url": "https://reed.co.uk/jobs/example",
-  "match_score": <int 70-99>,
-  "match_reason": "one sentence"
+  "match_score": <int 70-99>, "match_reason": "one sentence"
 }]`,
     messages: [{
       role: 'user',
@@ -128,15 +184,9 @@ Return ONLY valid JSON array — no markdown.
   })
   const jobs = parseJson(getText(response), [])
   return jobs.map((j: any) => ({
-    id: j.id,
-    title: j.title,
-    company: j.company,
-    location: j.location,
-    salary: j.salary,
-    description: j.description,
-    url: j.url,
-    matchScore: j.match_score,
-    matchReason: j.match_reason,
+    id: j.id, title: j.title, company: j.company, location: j.location,
+    salary: j.salary, description: j.description, url: j.url,
+    matchScore: j.match_score, matchReason: j.match_reason,
   }))
 }
 

@@ -93,6 +93,7 @@ create table public.applications (
   status              text not null default 'submitted',
   submission_method   text default 'manual',
   email_message_id    text,
+  user_notified_at    timestamptz,
   submitted_at        timestamptz not null default now(),
   updated_at          timestamptz not null default now()
 );
