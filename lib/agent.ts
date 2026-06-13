@@ -361,10 +361,8 @@ export async function runAgentPipeline(input: AgentInput): Promise<AgentResult> 
   const topJob = allJobs[0]
 
   // Step 3 — Tailor CV (Haiku x4 in parallel) + Interview Prep (Haiku) — run together
-  const [{ tailoredCv, coverLetter, atsKeywords, changesMade }, interviewPrep] = await Promise.all([
-    tailorCV(input.cv, topJob),
-    generateInterviewPrep(topJob, profile),
-  ])
+  const { tailoredCv, coverLetter, atsKeywords, changesMade } = await tailorCV(input.cv, topJob)
+  const interviewPrep = await generateInterviewPrep(topJob, profile)
 
   // Step 4 — Find recruiter email (Haiku)
   const recruiterEmail = await findRecruiterEmail(
