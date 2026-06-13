@@ -93,6 +93,8 @@ export async function POST(req: NextRequest) {
 
   } catch (err: any) {
     console.error('Agent error:', err)
+    console.error("Agent error cause:", (err as any)?.cause)
+    console.error("Agent error details:", JSON.stringify(err, Object.getOwnPropertyNames(err)))
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }
