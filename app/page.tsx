@@ -18,7 +18,7 @@ const PLANS = [
   },
   {
     name: 'Pro', price: '£12.99', period: 'per month',
-    features: ['50 applications per month', 'CV tailoring per role', 'Cover letter generation', 'ATS keyword analysis', 'Auto-apply via your email', 'Email + SMS notifications', 'Interview prep tips'],
+    features: ['100 applications per month', 'CV tailoring per role', 'Cover letter generation', 'ATS keyword analysis', 'Auto-apply via your email', 'Email + SMS notifications', 'Interview prep tips'],
     cta: 'Start Pro — £12.99/mo', href: '/auth?plan=pro', highlight: true,
   },
   {

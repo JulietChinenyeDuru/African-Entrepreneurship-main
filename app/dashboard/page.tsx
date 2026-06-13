@@ -218,7 +218,7 @@ export default function Dashboard() {
                 {error === 'limit' && (
                   <div style={{ background: '#FAEEDA', border: '1px solid #FAC775', borderRadius: 8, padding: '14px 16px', marginBottom: 16 }}>
                     <div style={{ fontWeight: 500, fontSize: 14, color: '#633806', marginBottom: 4 }}>Monthly limit reached</div>
-                    <p style={{ fontSize: 13, color: '#854F0B', margin: '0 0 12px' }}>Upgrade to Pro for 50 applications/month.</p>
+                    <p style={{ fontSize: 13, color: '#854F0B', margin: '0 0 12px' }}>Upgrade to Pro for 100 applications/month.</p>
                     <button onClick={upgradeNow} style={{ background: '#1D9E75', color: '#fff', border: 'none', padding: '9px 18px', borderRadius: 7, fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>Upgrade to Pro →</button>
                   </div>
                 )}
@@ -435,7 +435,7 @@ export default function Dashboard() {
                 </div>
                 <div style={{ background: '#F8F7F4', borderRadius: 8, padding: '12px 14px' }}>
                   <div style={{ fontSize: 11, color: '#888780', marginBottom: 3 }}>Applications this month</div>
-                  <div style={{ fontSize: 13, fontWeight: 500 }}>{profile?.applications_used_month || 0}{profile?.plan === 'free' ? ' / 5' : profile?.plan === 'africa' ? ' / 30' : ' / 50'}</div>
+                  <div style={{ fontSize: 13, fontWeight: 500 }}>{profile?.applications_used_month || 0}{profile?.plan === 'free' ? ' / 5' : profile?.plan === 'africa' ? ' / 30' : ' / 100'}</div>
                 </div>
               </div>
               {profile?.plan === 'free' && (
