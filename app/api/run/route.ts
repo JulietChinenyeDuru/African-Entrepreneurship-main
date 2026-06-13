@@ -1,6 +1,6 @@
 // app/api/run/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerSupabaseClient } from '@/lib/supabase-server'
+import { createServerSupabaseClient } from '@/lib/supabase'
 import { runAgentPipeline } from '@/lib/agent'
 
 const PLAN_LIMITS: Record<string, number> = {
@@ -69,6 +69,7 @@ export async function POST(req: NextRequest) {
         cover_letter: result.coverLetter,
         ats_keywords: result.atsKeywords,
         changes_made: result.changesMade,
+        interview_prep: result.interviewPrep,
         status: 'ready',
         submission_method: 'manual',
       })

@@ -90,6 +90,7 @@ create table public.applications (
   cover_letter        text,
   ats_keywords        jsonb,
   changes_made        text[],
+  interview_prep      jsonb,
   status              text not null default 'submitted',
   submission_method   text default 'manual',
   email_message_id    text,

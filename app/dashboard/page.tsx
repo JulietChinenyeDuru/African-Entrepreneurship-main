@@ -6,7 +6,7 @@ import {
   FileText, Search, Zap, Bell, Copy, CheckCircle,
   LogOut, Crown, Loader, ChevronDown, ChevronUp,
   BarChart2, Briefcase, AlertCircle, ArrowRight,
-  Mail, Settings, Send, Eye, EyeOff
+  Mail, Settings, Send, Eye, EyeOff, Lock, MessageSquare
 } from 'lucide-react'
 
 type Step = 'idle' | 'profile' | 'jobs' | 'tailor' | 'done' | 'error'
@@ -238,7 +238,7 @@ export default function Dashboard() {
                 <h3 style={{ fontSize: 16, fontWeight: 500, margin: '0 0 8px' }}>
                   {step === 'profile' ? 'Analysing your CV...' : step === 'jobs' ? 'Finding matching jobs...' : 'Tailoring your CV...'}
                 </h3>
-                <p style={{ fontSize: 13, color: '#888780', margin: 0 }}>Our AI is working on your application</p>
+                <p style={{ fontSize: 13, color: '#888780', margin: 0 }}>Using Haiku AI — fast and cost-efficient</p>
               </div>
             )}
 
@@ -289,6 +289,7 @@ export default function Dashboard() {
                   { key: 'cl', title: 'Cover letter', content: result.coverLetter },
                   { key: 'kw', title: 'ATS keywords', content: null },
                   { key: 'changes', title: `Changes made (${result.changesMade?.length || 0})`, content: null },
+                  { key: 'interview', title: 'Interview preparation', content: null },
                 ].map(s => (
                   <div key={s.key} style={{ background: '#fff', border: '1px solid #E2E0D8', borderRadius: 10, marginBottom: 10, overflow: 'hidden' }}>
                     <button onClick={() => setExpandedSection(expandedSection === s.key ? null : s.key)} style={{ width: '100%', padding: '14px 16px', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontFamily: 'inherit' }}>
@@ -314,6 +315,56 @@ export default function Dashboard() {
                                 </div>
                               </div>
                             ) : null)}
+                          </div>
+                        ) : s.key === 'interview' ? (
+                          <div style={{ paddingTop: 10 }}>
+                            {profile?.plan === 'free' ? (
+                              <div style={{ textAlign: 'center', padding: '24px 10px' }}>
+                                <Lock size={22} color="#888780" style={{ marginBottom: 10 }}/>
+                                <p style={{ fontSize: 13, color: '#5F5E5A', margin: '0 0 14px', lineHeight: 1.6 }}>
+                                  Interview preparation — likely questions, key talking points, and questions to ask — is a Pro feature.
+                                </p>
+                                <button onClick={upgradeNow} style={{ background: '#1D9E75', color: '#fff', border: 'none', padding: '9px 18px', borderRadius: 7, fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                                  <Crown size={13}/>Upgrade to Pro
+                                </button>
+                              </div>
+                            ) : (
+                              <>
+                                {result.interviewPrep?.likelyQuestions?.length > 0 && (
+                                  <div style={{ marginBottom: 16 }}>
+                                    <div style={{ fontSize: 11, fontWeight: 500, color: '#888780', marginBottom: 8 }}>LIKELY QUESTIONS</div>
+                                    {result.interviewPrep.likelyQuestions.map((q: string, i: number) => (
+                                      <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'flex-start', marginBottom: 7 }}>
+                                        <MessageSquare size={13} color="#1D9E75" style={{ flexShrink: 0, marginTop: 1 }}/>
+                                        <span style={{ fontSize: 13 }}>{q}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                                {result.interviewPrep?.talkingPoints?.length > 0 && (
+                                  <div style={{ marginBottom: 16 }}>
+                                    <div style={{ fontSize: 11, fontWeight: 500, color: '#888780', marginBottom: 8 }}>KEY TALKING POINTS</div>
+                                    {result.interviewPrep.talkingPoints.map((p: string, i: number) => (
+                                      <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'flex-start', marginBottom: 7 }}>
+                                        <CheckCircle size={13} color="#1D9E75" style={{ flexShrink: 0, marginTop: 1 }}/>
+                                        <span style={{ fontSize: 13 }}>{p}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                                {result.interviewPrep?.questionsToAsk?.length > 0 && (
+                                  <div>
+                                    <div style={{ fontSize: 11, fontWeight: 500, color: '#888780', marginBottom: 8 }}>QUESTIONS TO ASK THEM</div>
+                                    {result.interviewPrep.questionsToAsk.map((q: string, i: number) => (
+                                      <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'flex-start', marginBottom: 7 }}>
+                                        <ArrowRight size={13} color="#1D9E75" style={{ flexShrink: 0, marginTop: 1 }}/>
+                                        <span style={{ fontSize: 13 }}>{q}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </>
+                            )}
                           </div>
                         ) : (
                           <div style={{ paddingTop: 10 }}>

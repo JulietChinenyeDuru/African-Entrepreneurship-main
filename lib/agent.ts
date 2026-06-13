@@ -56,6 +56,11 @@ export interface AgentResult {
   }
   changesMade: string[]
   recruiterEmail: string | null
+  interviewPrep: {
+    likelyQuestions: string[]
+    talkingPoints: string[]
+    questionsToAsk: string[]
+  }
 }
 
 // ── Helper ───────────────────────────────────────────────────
@@ -301,6 +306,40 @@ Return ONLY the email address. If unknown return "unknown".`,
   return `careers@${domain}.co.uk`
 }
 
+// ── Step 5: Interview Preparation ─────────────────────────────
+// Uses Haiku — generates likely questions, talking points,
+// and questions to ask the interviewer for this specific job
+
+export async function generateInterviewPrep(job: JobMatch, profile: any) {
+  const response = await claude.messages.create({
+    model: TASK_MODELS.interviewPrep,     // Haiku
+    max_tokens: MAX_TOKENS.interviewPrep,
+    system: `You are an interview coach preparing a candidate for a
+specific job interview. Return ONLY valid JSON — no markdown.
+{
+  "likely_questions": ["q1","q2","q3","q4","q5"],
+  "talking_points": ["point1","point2","point3","point4"],
+  "questions_to_ask": ["q1","q2","q3"]
+}
+likely_questions: realistic interview questions for THIS role.
+talking_points: specific achievements from the candidate's
+  background they should highlight, tailored to this job.
+questions_to_ask: thoughtful questions the candidate could ask
+  the interviewer about this role/company.`,
+    messages: [{
+      role: 'user',
+      content: `Job: ${job.title} at ${job.company}\nLocation: ${job.location}\nDescription: ${job.description}\n\nCandidate summary: ${profile.summary}\nTop skills: ${(profile.topSkills || profile.top_skills || []).join(', ')}\nCareer level: ${profile.careerLevel || profile.career_level}`,
+    }],
+  })
+
+  const data = parseJson(getText(response), {})
+  return {
+    likelyQuestions: data.likely_questions || [],
+    talkingPoints: data.talking_points || [],
+    questionsToAsk: data.questions_to_ask || [],
+  }
+}
+
 // ── Full Pipeline ─────────────────────────────────────────────
 
 export async function runAgentPipeline(input: AgentInput): Promise<AgentResult> {
@@ -321,8 +360,11 @@ export async function runAgentPipeline(input: AgentInput): Promise<AgentResult> 
   if (!allJobs.length) throw new Error('No jobs found for your profile.')
   const topJob = allJobs[0]
 
-  // Step 3 — Tailor CV (Haiku x4 in parallel)
-  const { tailoredCv, coverLetter, atsKeywords, changesMade } = await tailorCV(input.cv, topJob)
+  // Step 3 — Tailor CV (Haiku x4 in parallel) + Interview Prep (Haiku) — run together
+  const [{ tailoredCv, coverLetter, atsKeywords, changesMade }, interviewPrep] = await Promise.all([
+    tailorCV(input.cv, topJob),
+    generateInterviewPrep(topJob, profile),
+  ])
 
   // Step 4 — Find recruiter email (Haiku)
   const recruiterEmail = await findRecruiterEmail(
@@ -338,5 +380,6 @@ export async function runAgentPipeline(input: AgentInput): Promise<AgentResult> 
     atsKeywords,
     changesMade,
     recruiterEmail,
+    interviewPrep,
   }
 }
