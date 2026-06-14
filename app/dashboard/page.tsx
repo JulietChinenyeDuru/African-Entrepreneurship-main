@@ -174,6 +174,32 @@ export default function Dashboard() {
     setTimeout(() => setCopied(null), 2000)
   }
 
+  const downloadFile = async (title: string, content: string, format: "docx" | "pdf") => {
+    try {
+      const res = await fetch("/api/download", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, content, format }),
+      })
+      if (!res.ok) {
+        const data = await res.json()
+        setError(data.error || "Download failed")
+        return
+      }
+      const blob = await res.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = title + "." + format
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      window.URL.revokeObjectURL(url)
+    } catch (err: any) {
+      setError("Download failed: " + err.message)
+    }
+  }
+
   const signOut = async () => { await supabase.auth.signOut(); router.push('/') }
 
   const upgradeNow = async () => {
@@ -341,6 +367,8 @@ export default function Dashboard() {
                             <button onClick={() => copyText(s.content!, s.key)} style={{ fontSize: 13, color: '#888780', background: '#F8F7F4', border: '1px solid #E2E0D8', borderRadius: 6, padding: '4px 12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 5 }}>
                               {copied === s.key ? <><CheckCircle size={11} color="#1D9E75"/>Copied!</> : <><Copy size={11}/>Copy</>}
                             </button>
+                          <button onClick={() => downloadFile(s.title, s.content!, "docx")} style={{ fontSize: 13, color: "#888780", background: "#F8F7F4", border: "1px solid #E2E0D8", borderRadius: 6, padding: "4px 12px", cursor: "pointer", fontFamily: "inherit", marginLeft: 6 }}>Download Word</button>
+                          <button onClick={() => downloadFile(s.title, s.content!, "pdf")} style={{ fontSize: 13, color: "#888780", background: "#F8F7F4", border: "1px solid #E2E0D8", borderRadius: 6, padding: "4px 12px", cursor: "pointer", fontFamily: "inherit", marginLeft: 6 }}>Download PDF</button>
                           </>
                         ) : s.key === 'kw' ? (
                           <div style={{ paddingTop: 10 }}>
