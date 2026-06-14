@@ -26,6 +26,10 @@ export default function Dashboard() {
   const [salary, setSalary] = useState('')
   const [level, setLevel] = useState('')
   const [uploadStatus, setUploadStatus] = useState<string>('')
+  const [reviewRating, setReviewRating] = useState(0)
+  const [reviewComment, setReviewComment] = useState('')
+  const [showCommentBox, setShowCommentBox] = useState(false)
+  const [reviewStatus, setReviewStatus] = useState('')
   // Agent state
   const [step, setStep] = useState<Step>('idle')
   const [result, setResult] = useState<any>(null)
@@ -197,6 +201,32 @@ export default function Dashboard() {
       window.URL.revokeObjectURL(url)
     } catch (err: any) {
       setError("Download failed: " + err.message)
+  }
+  }
+
+  const submitReview = async () => {
+    if (reviewRating < 1) {
+      setReviewStatus("Please select a rating.")
+      return
+    }
+    setReviewStatus("Submitting...")
+    try {
+      const res = await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ rating: reviewRating, comment: reviewComment }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setReviewStatus(data.error || "Failed to submit review")
+        return
+      }
+      setReviewStatus("Thank you for your feedback!")
+      setReviewRating(0)
+      setReviewComment("")
+      setShowCommentBox(false)
+    } catch (err: any) {
+      setReviewStatus("Failed to submit review: " + err.message)
     }
   }
 
@@ -509,6 +539,31 @@ export default function Dashboard() {
                 </button>
               )}
             </div>
+
+          {/* Leave a review */}
+          <div style={{ background: "#fff", border: "1px solid #E2E0D8", borderRadius: 12, padding: 24 }}>
+            <h2 style={{ fontSize: 19, fontWeight: 500, margin: "0 0 12px" }}>Leave a review</h2>
+            <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+              {[1,2,3,4,5].map(n => (
+                <button key={n} onClick={() => setReviewRating(n)} style={{ fontSize: 24, background: "none", border: "none", cursor: "pointer", color: n <= reviewRating ? "#1D9E75" : "#E2E0D8", fontFamily: "inherit", padding: 0 }}>
+                  ★
+                </button>
+              ))}
+            </div>
+            {!showCommentBox ? (
+              <button onClick={() => setShowCommentBox(true)} style={{ fontSize: 14, color: "#1D9E75", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", padding: 0, textDecoration: "underline" }}>
+                Add a comment
+              </button>
+            ) : (
+              <textarea value={reviewComment} onChange={e => setReviewComment(e.target.value)} rows={4} placeholder="Tell us what you think..." style={{ width: "100%", padding: 10, border: "1px solid #E2E0D8", borderRadius: 8, fontFamily: "inherit", fontSize: 15, resize: "vertical", marginBottom: 10 }} />
+            )}
+            <div style={{ marginTop: 12 }}>
+              <button onClick={submitReview} style={{ background: "#1D9E75", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 8, fontSize: 15, fontWeight: 500, cursor: "pointer", fontFamily: "inherit" }}>
+                Submit review
+              </button>
+              {reviewStatus && <span style={{ marginLeft: 10, fontSize: 14, color: "#5F5E5A" }}>{reviewStatus}</span>}
+            </div>
+          </div>
 
             {/* Auto-apply email setup */}
             <div style={{ background: '#fff', border: '1px solid #E2E0D8', borderRadius: 12, padding: 24 }}>
