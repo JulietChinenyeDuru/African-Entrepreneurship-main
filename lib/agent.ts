@@ -317,11 +317,11 @@ export async function generateInterviewPrep(job: JobMatch, profile: any) {
     system: `You are an interview coach preparing a candidate for a
 specific job interview. Return ONLY valid JSON — no markdown.
 {
-  "likely_questions": ["q1","q2","q3","q4","q5"],
+  "likely_questions": ["q1","q2","q3","q4","q5","q6","q7","q8","q9","q10"],
   "talking_points": ["point1","point2","point3","point4"],
   "questions_to_ask": ["q1","q2","q3"]
 }
-likely_questions: realistic interview questions for THIS role.
+likely_questions: 10 realistic interview questions for THIS role, covering technical, behavioral, and situational types.
 talking_points: specific achievements from the candidate's
   background they should highlight, tailored to this job.
 questions_to_ask: thoughtful questions the candidate could ask
@@ -332,6 +332,7 @@ questions_to_ask: thoughtful questions the candidate could ask
     }],
   })
 
+  console.log('[interviewPrep] raw response:', getText(response))
   const data = parseJson(getText(response), {})
   return {
     likelyQuestions: data.likely_questions || [],
