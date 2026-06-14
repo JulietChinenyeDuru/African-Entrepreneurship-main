@@ -25,6 +25,7 @@ export default function Dashboard() {
   const [location, setLocation] = useState('Scotland, UK')
   const [salary, setSalary] = useState('')
   const [level, setLevel] = useState('')
+  const [uploadStatus, setUploadStatus] = useState<string>('')
   // Agent state
   const [step, setStep] = useState<Step>('idle')
   const [result, setResult] = useState<any>(null)
@@ -59,6 +60,34 @@ export default function Dashboard() {
   }, [])
 
   const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month || 0)) : 5
+
+  const handleCvUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploadStatus("Uploading...")
+    setError("")
+
+    try {
+      const formData = new FormData()
+      formData.append("file", file)
+
+      const res = await fetch("/api/parse-cv", { method: "POST", body: formData })
+      const data = await res.json()
+
+      if (!res.ok) {
+        setUploadStatus("")
+        setError(data.error || "Failed to parse file")
+        return
+      }
+
+      setCv(data.text)
+      setUploadStatus("CV uploaded: " + file.name)
+    } catch (err: any) {
+      setUploadStatus("")
+      setError("Upload failed: " + err.message)
+    }
+  }
 
   const runAgent = async () => {
     if (!cv.trim()) { setError('Please paste your CV first.'); return }
@@ -205,6 +234,13 @@ export default function Dashboard() {
                 <h2 style={{ fontSize: 18, fontWeight: 500, margin: '0 0 20px' }}>Your job application details</h2>
                 <div style={{ marginBottom: 14 }}>
                   <label style={lbl}>Your CV (paste full text)</label>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                  <label htmlFor="cv-upload" style={{ ...inp, display: "inline-block", width: "auto", cursor: "pointer", padding: "6px 12px", fontSize: 13 }}>
+                    Upload CV (.docx or .pdf)
+                  </label>
+                  <input id="cv-upload" type="file" accept=".docx,.pdf" onChange={handleCvUpload} style={{ display: "none" }} />
+                  {uploadStatus && <span style={{ fontSize: 12, color: "#1D9E75" }}>{uploadStatus}</span>}
+                </div>
                   <textarea value={cv} onChange={e => setCv(e.target.value)} rows={8} placeholder="Paste your full CV — work history, skills, education, achievements..." style={{ ...inp, resize: 'vertical' }}/>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
