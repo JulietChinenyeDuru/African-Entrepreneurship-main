@@ -238,7 +238,7 @@ export default function Dashboard() {
                 <h3 style={{ fontSize: 16, fontWeight: 500, margin: '0 0 8px' }}>
                   {step === 'profile' ? 'Analysing your CV...' : step === 'jobs' ? 'Finding matching jobs...' : 'Tailoring your CV...'}
                 </h3>
-                <p style={{ fontSize: 13, color: '#888780', margin: 0 }}>Using Haiku AI — fast and cost-efficient</p>
+                <p style={{ fontSize: 13, color: '#888780', margin: 0 }}>This usually takes under a minute</p>
               </div>
             )}
 
