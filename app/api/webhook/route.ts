@@ -1,7 +1,7 @@
 // app/api/webhook/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
-import { createServerSupabaseClient } from '@/lib/supabase-server'
+import { createAdminClient } from '@/lib/supabase-admin'
 import Stripe from 'stripe'
 
 export async function POST(req: NextRequest) {
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: `Webhook error: ${err.message}` }, { status: 400 })
   }
 
-  const supabase = createServerSupabaseClient()
+  const supabase = createAdminClient()
 
   switch (event.type) {
     case 'customer.subscription.created':
