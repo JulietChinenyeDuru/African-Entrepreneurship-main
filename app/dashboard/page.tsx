@@ -6,11 +6,11 @@ import {
   FileText, Search, Zap, Bell, Copy, CheckCircle,
   LogOut, Crown, Loader, ChevronDown, ChevronUp,
   BarChart2, Briefcase, AlertCircle, ArrowRight,
-  Mail, Settings, Send, Eye, EyeOff, Lock, MessageSquare
+  Mail, Settings, Send, Eye, EyeOff, Lock, MessageSquare, Star
 } from 'lucide-react'
 
 type Step = 'idle' | 'profile' | 'jobs' | 'tailor' | 'done' | 'error'
-type Tab = 'run' | 'applications' | 'account'
+type Tab = 'run' | 'applications' | 'account' | 'reviews'
 
 export default function Dashboard() {
   const router = useRouter()
@@ -275,7 +275,7 @@ export default function Dashboard() {
 
         {/* Tabs */}
         <div style={{ display: 'flex', borderBottom: '1px solid #E2E0D8', marginBottom: 24, gap: 4 }}>
-          {[{ key: 'run', label: 'Apply now', icon: Zap }, { key: 'applications', label: `Applications (${applications.length})`, icon: Briefcase }, { key: 'account', label: 'Account', icon: Settings }].map(t => (
+          {[{ key: 'run', label: 'Apply now', icon: Zap }, { key: 'applications', label: `Applications (${applications.length})`, icon: Briefcase }, { key: 'account', label: 'Account', icon: Settings }, { key: 'reviews', label: 'Reviews', icon: Star }].map(t => (
             <button key={t.key} onClick={() => setTab(t.key as Tab)} style={{ padding: '10px 16px', fontSize: 17, fontWeight: 500, background: 'none', border: 'none', cursor: 'pointer', color: tab === t.key ? '#1D9E75' : '#888780', borderBottom: `2px solid ${tab === t.key ? '#1D9E75' : 'transparent'}`, marginBottom: -1, display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit' }}>
               <t.icon size={13}/>{t.label}
             </button>
@@ -540,31 +540,6 @@ export default function Dashboard() {
               )}
             </div>
 
-          {/* Leave a review */}
-          <div style={{ background: "#fff", border: "1px solid #E2E0D8", borderRadius: 12, padding: 24 }}>
-            <h2 style={{ fontSize: 19, fontWeight: 500, margin: "0 0 12px" }}>Leave a review</h2>
-            <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
-              {[1,2,3,4,5].map(n => (
-                <button key={n} onClick={() => setReviewRating(n)} style={{ fontSize: 24, background: "none", border: "none", cursor: "pointer", color: n <= reviewRating ? "#1D9E75" : "#E2E0D8", fontFamily: "inherit", padding: 0 }}>
-                  ★
-                </button>
-              ))}
-            </div>
-            {!showCommentBox ? (
-              <button onClick={() => setShowCommentBox(true)} style={{ fontSize: 14, color: "#1D9E75", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", padding: 0, textDecoration: "underline" }}>
-                Add a comment
-              </button>
-            ) : (
-              <textarea value={reviewComment} onChange={e => setReviewComment(e.target.value)} rows={4} placeholder="Tell us what you think..." style={{ width: "100%", padding: 10, border: "1px solid #E2E0D8", borderRadius: 8, fontFamily: "inherit", fontSize: 15, resize: "vertical", marginBottom: 10 }} />
-            )}
-            <div style={{ marginTop: 12 }}>
-              <button onClick={submitReview} style={{ background: "#1D9E75", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 8, fontSize: 15, fontWeight: 500, cursor: "pointer", fontFamily: "inherit" }}>
-                Submit review
-              </button>
-              {reviewStatus && <span style={{ marginLeft: 10, fontSize: 14, color: "#5F5E5A" }}>{reviewStatus}</span>}
-            </div>
-          </div>
-
             {/* Auto-apply email setup */}
             <div style={{ background: '#fff', border: '1px solid #E2E0D8', borderRadius: 12, padding: 24 }}>
               <h2 style={{ fontSize: 19, fontWeight: 500, margin: '0 0 6px', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -645,6 +620,33 @@ export default function Dashboard() {
                   Test connection
                 </button>
               </div>
+            </div>
+          </div>
+        )}
+
+          {/* Leave a review */}
+        {tab === 'reviews' && (
+          <div style={{ background: "#fff", border: "1px solid #E2E0D8", borderRadius: 12, padding: 24 }}>
+            <h2 style={{ fontSize: 19, fontWeight: 500, margin: "0 0 12px" }}>Leave a review</h2>
+            <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+              {[1,2,3,4,5].map(n => (
+                <button key={n} onClick={() => setReviewRating(n)} style={{ fontSize: 24, background: "none", border: "none", cursor: "pointer", color: n <= reviewRating ? "#1D9E75" : "#E2E0D8", fontFamily: "inherit", padding: 0 }}>
+                  ★
+                </button>
+              ))}
+            </div>
+            {!showCommentBox ? (
+              <button onClick={() => setShowCommentBox(true)} style={{ fontSize: 14, color: "#1D9E75", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", padding: 0, textDecoration: "underline" }}>
+                Add a comment
+              </button>
+            ) : (
+              <textarea value={reviewComment} onChange={e => setReviewComment(e.target.value)} rows={4} placeholder="Tell us what you think..." style={{ width: "100%", padding: 10, border: "1px solid #E2E0D8", borderRadius: 8, fontFamily: "inherit", fontSize: 15, resize: "vertical", marginBottom: 10 }} />
+            )}
+            <div style={{ marginTop: 12 }}>
+              <button onClick={submitReview} style={{ background: "#1D9E75", color: "#fff", border: "none", padding: "10px 20px", borderRadius: 8, fontSize: 15, fontWeight: 500, cursor: "pointer", fontFamily: "inherit" }}>
+                Submit review
+              </button>
+              {reviewStatus && <span style={{ marginLeft: 10, fontSize: 14, color: "#5F5E5A" }}>{reviewStatus}</span>}
             </div>
           </div>
         )}
