@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
-import { CheckCircle, Zap, Bell, Search, FileText, ArrowRight, Star, Mail } from 'lucide-react'
+import { useState } from 'react'
+import { CheckCircle, Zap, Bell, Search, FileText, ArrowRight, Star, Mail, MessageSquare } from 'lucide-react'
 
 const FEATURES = [
   { icon: FileText, title: 'Smart CV analysis', desc: 'AI reads your CV, extracts your skills, scores ATS readiness, and tells you exactly what to improve.' },
@@ -30,6 +31,26 @@ const PLANS = [
 ]
 
 export default function HomePage() {
+  const [showComments, setShowComments] = useState(false)
+  const [reviews, setReviews] = useState<{ rating: number; comment: string; created_at: string }[]>([])
+  const [loadingReviews, setLoadingReviews] = useState(false)
+
+  const toggleComments = async () => {
+    const willShow = !showComments
+    if (willShow && reviews.length === 0) {
+      setLoadingReviews(true)
+      try {
+        const res = await fetch('/api/reviews')
+        const data = await res.json()
+        setReviews(data.reviews || [])
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setLoadingReviews(false)
+      }
+    }
+    setShowComments(willShow)
+  }
   return (
     <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#F8F7F4', color: '#0F172A', minHeight: '100vh' }}>
       {/* NAV */}
@@ -121,6 +142,61 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* COMMENTS */}
+      <section style={{ padding: '60px 5vw', background: '#fff', textAlign: 'center' }}>
+        <button
+          onClick={toggleComments}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '12px 24px',
+            borderRadius: 8,
+            border: '1px solid #E2E0D8',
+            background: 'transparent',
+            color: '#0F172A',
+            fontSize: 15,
+            fontWeight: 500,
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+          }}
+        >
+          <MessageSquare size={18} />
+          {showComments ? 'Hide comments' : 'View comments'}
+        </button>
+
+        {showComments && (
+          <div style={{ maxWidth: 700, margin: '32px auto 0', textAlign: 'left' }}>
+            {loadingReviews && <div style={{ color: '#888780' }}>Loading comments...</div>}
+
+            {!loadingReviews && reviews.length === 0 && (
+              <div style={{ color: '#888780' }}>No comments yet. Be the first to leave one!</div>
+            )}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {reviews.map((review, i) => (
+                <div
+                  key={i}
+                  style={{
+                    background: '#F8F7F4',
+                    border: '1px solid #E2E0D8',
+                    borderRadius: 12,
+                    padding: 16,
+                  }}
+                >
+                  <div style={{ fontSize: 16, color: '#1D9E75', marginBottom: 6 }}>
+                    {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                  </div>
+                  <div style={{ fontSize: 14, color: '#3A3A36', lineHeight: 1.6 }}>
+                    {review.comment}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
       {/* FOOTER */}
