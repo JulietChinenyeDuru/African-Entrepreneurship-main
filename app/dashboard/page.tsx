@@ -50,7 +50,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function load() {
-      const { data: { user } } = await supabase.auth.getUser()
+      const { data: { session } } = await supabase.auth.getSession()
+    const user = session?.user
       if (!user) { router.push('/auth'); return }
       setUser(user)
       const { data: p } = await supabase.from('profiles').select('*').eq('id', user.id).single()
