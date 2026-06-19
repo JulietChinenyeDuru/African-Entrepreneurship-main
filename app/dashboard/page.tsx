@@ -62,6 +62,7 @@ export default function Dashboard() {
   })
   return () => subscription.unsubscribe()
 }, [])
+const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month || 0)) : 5
   const handleCvUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
