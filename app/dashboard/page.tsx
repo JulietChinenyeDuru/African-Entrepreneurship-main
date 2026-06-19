@@ -50,6 +50,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function load() {
+      await new Promise(resolve => setTimeout(resolve, 500))
       const { data: { session } } = await supabase.auth.getSession()
     const user = session?.user
       if (!user) { router.push('/auth'); return }
