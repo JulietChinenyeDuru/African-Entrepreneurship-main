@@ -16,6 +16,7 @@ export default function Dashboard() {
   const router = useRouter()
   const supabase = createClient()
   const [user, setUser] = useState<any>(null)
+  const [authLoading, setAuthLoading] = useState(true)
   const [profile, setProfile] = useState<any>(null)
   const [applications, setApplications] = useState<any[]>([])
   const [tab, setTab] = useState<Tab>('run')
@@ -50,6 +51,7 @@ export default function Dashboard() {
 
   useEffect(() => {
   const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    setAuthLoading(false)
     if (!session) { router.push("/auth"); return }
     const user = session.user
     setUser(user)
