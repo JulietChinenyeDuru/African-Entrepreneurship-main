@@ -49,23 +49,18 @@ export default function Dashboard() {
   const [submitResult, setSubmitResult] = useState<any>(null)
 
   useEffect(() => {
-    async function load() {
-      await new Promise(resolve => setTimeout(resolve, 500))
-      const { data: { session } } = await supabase.auth.getSession()
-    const user = session?.user
-      if (!user) { router.push('/auth'); return }
-      setUser(user)
-      const { data: p } = await supabase.from('profiles').select('*').eq('id', user.id).single()
-      setProfile(p)
-      if (p?.email_address) setEmailAddress(p.email_address)
-      if (p?.email_provider) setEmailProvider(p.email_provider)
-      const { data: apps } = await supabase.from('applications').select('*').eq('user_id', user.id).order('submitted_at', { ascending: false }).limit(20)
-      setApplications(apps || [])
-    }
-    load()
-  }, [])
-
-  const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month || 0)) : 5
+  const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    if (!session) { router.push("/auth"); return }
+    const user = session.user
+    setUser(user)
+    const { data: p } = await supabase.from("profiles").select("*").eq("id", user.id).single()
+    setProfile(p)
+    if (p?.email_address) setEmailAddress(p.email_address)
+    if (p?.email_provider) setEmailProvider(p.email_provider)
+    const { data: apps } = await supabase.from("applications").select("*").eq("user_id", user.id).order("submitted_at", { ascending: false }).limit(20)
+    setApplications(apps || [])
+  })
+  return () => subscription.unsubscribe()
 
   const handleCvUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
