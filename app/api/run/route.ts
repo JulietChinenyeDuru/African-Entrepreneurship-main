@@ -43,14 +43,14 @@ export async function POST(req: NextRequest) {
 
   // Parse request
   const body = await req.json()
-  const { cv, role, location, salary, level } = body
+  const { cv, role, location, salary, level, jobDesc } = body
 
   if (!cv?.trim()) return NextResponse.json({ error: 'CV text required' }, { status: 400 })
   if (!role?.trim()) return NextResponse.json({ error: 'Target role required' }, { status: 400 })
 
   try {
     // Run agent pipeline
-    const result = await runAgentPipeline({ cv, role, location, salary, level })
+    const result = await runAgentPipeline({ cv, role, location, salary, level, jobDesc })
 
     // Save to Supabase
     const { data: app } = await supabase

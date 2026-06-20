@@ -26,7 +26,8 @@ export interface JobMatch {
   title: string
   company: string
   location: string
-  salary: string
+  salary?: string
+  jobDesc?: string
   description: string
   url: string
   matchScore: number
@@ -356,10 +357,26 @@ export async function runAgentPipeline(input: AgentInput): Promise<AgentResult> 
     summary: profileRaw.summary || '',
   }
 
-  // Step 2 — Jobs (Haiku)
-  const allJobs = await findJobs(profileRaw, input)
-  if (!allJobs.length) throw new Error('No jobs found for your profile.')
-  const topJob = allJobs[0]
+  // Step 2 – Jobs (Haiku) or use provided job description
+  let allJobs: any[] = []
+  let topJob: any
+  if (input.jobDesc && input.jobDesc.trim()) {
+    topJob = {
+      title: input.role,
+      company: 'Target Company',
+      location: input.location || '',
+      description: input.jobDesc,
+      url: '',
+      salary: input.salary || '',
+      matchScore: 100,
+      source: 'manual',
+    }
+    allJobs = [topJob]
+  } else {
+    allJobs = await findJobs(profileRaw, input)
+    if (!allJobs.length) throw new Error('No jobs found for your profile.')
+    topJob = allJobs[0]
+  }
 
   // Step 3 — Tailor CV (Haiku x4 in parallel) + Interview Prep (Haiku) — run together
   const { tailoredCv, coverLetter, atsKeywords, changesMade } = await tailorCV(input.cv, topJob)

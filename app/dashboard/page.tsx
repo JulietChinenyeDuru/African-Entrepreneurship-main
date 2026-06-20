@@ -27,6 +27,10 @@ export default function Dashboard() {
   const [salary, setSalary] = useState('')
   const [level, setLevel] = useState('')
   const [uploadStatus, setUploadStatus] = useState<string>('')
+  const [jobUrl, setJobUrl] = useState('')
+  const [jobDesc, setJobDesc] = useState('')
+  const [fetchingJob, setFetchingJob] = useState(false)
+  const [fetchJobError, setFetchJobError] = useState('')
   const [reviewRating, setReviewRating] = useState(0)
   const [reviewComment, setReviewComment] = useState('')
   const [showCommentBox, setShowCommentBox] = useState(false)
@@ -99,6 +103,22 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
     }
   }
 
+
+  const handleFetchJob = async () => {
+    if (!jobUrl.trim()) return
+    setFetchingJob(true); setFetchJobError("")
+    try {
+      const res = await fetch("/api/fetch-job", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: jobUrl }) })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Failed to fetch job")
+      setJobDesc(data.text)
+    } catch (err: any) {
+      setFetchJobError(err.message)
+    } finally {
+      setFetchingJob(false)
+    }
+  }
+
   const runAgent = async () => {
     if (!cv.trim()) { setError('Please paste your CV first.'); return }
     if (!role.trim()) { setError('Please enter a target role.'); return }
@@ -110,7 +130,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
       const res = await fetch('/api/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cv, role, location, salary, level }),
+        body: JSON.stringify({ cv, role, location, salary, level, jobDesc }),
       })
       clearTimeout(t1); clearTimeout(t2)
       const data = await res.json()
@@ -306,6 +326,24 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                 </div>
                   <textarea value={cv} onChange={e => setCv(e.target.value)} rows={8} placeholder="Paste your full CV — work history, skills, education, achievements..." style={{ ...inp, resize: 'vertical' }}/>
                 </div>
+
+              {/* Job URL */}
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ ...lbl }}>Job posting URL</label>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <input value={jobUrl} onChange={e => setJobUrl(e.target.value)} placeholder="https://reed.co.uk/jobs/..." style={{ ...inp, flex: 1 }}/>
+                  <button type="button" onClick={handleFetchJob} disabled={fetchingJob || !jobUrl.trim()} style={{ padding: "10px 18px", background: "#1D9E75", color: "#fff", border: "none", borderRadius: 8, fontSize: 14, fontWeight: 500, cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
+                    {fetchingJob ? "Fetching..." : "Fetch job"}
+                  </button>
+                </div>
+                {fetchJobError && <span style={{ fontSize: 13, color: "#A32D2D" }}>{fetchJobError}</span>}
+              </div>
+              {/* Job Description */}
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ ...lbl }}>Job description <span style={{ fontWeight: 400, color: "#888780" }}>(auto-filled or paste manually)</span></label>
+                <textarea value={jobDesc} onChange={e => setJobDesc(e.target.value)} rows={6} placeholder="Paste the job description here, or use the Fetch button above..." style={{ ...inp, resize: "vertical" }}/>
+              </div>
+
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
                   <div><label style={lbl}>Target role</label><input value={role} onChange={e => setRole(e.target.value)} placeholder="e.g. DevOps Engineer" style={inp}/></div>
                   <div><label style={lbl}>Location</label><input value={location} onChange={e => setLocation(e.target.value)} placeholder="e.g. Scotland, UK" style={inp}/></div>
