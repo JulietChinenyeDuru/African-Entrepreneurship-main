@@ -335,9 +335,9 @@ questions_to_ask: thoughtful questions the candidate could ask
   console.log('[interviewPrep] raw response:', getText(response))
   const data = parseJson(getText(response), {})
   return {
-    likelyQuestions: data.likely_questions || [],
-    talkingPoints: data.talking_points || [],
-    questionsToAsk: data.questions_to_ask || [],
+    likelyQuestions: data.likely_questions || data.likelyQuestions || [],
+    talkingPoints: data.talking_points || data.talkingPoints || [],
+    questionsToAsk: data.questions_to_ask || data.questionsToAsk || [],
   }
 }
 
