@@ -51,8 +51,14 @@ export default function Dashboard() {
 
   useEffect(() => {
   const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    if (!session) {
+      setTimeout(() => {
+        setAuthLoading(false)
+        router.push("/auth")
+      }, 2000)
+      return
+    }
     setAuthLoading(false)
-    if (!session) { router.push("/auth"); return }
     const user = session.user
     setUser(user)
     const { data: p } = await supabase.from("profiles").select("*").eq("id", user.id).single()
