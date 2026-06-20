@@ -21,15 +21,22 @@ export async function POST(req: NextRequest) {
       const result = await mammoth.extractRawText({ buffer })
       text = result.value
     } else if (name.endsWith('.pdf')) {
-      const pdfParseModule = await import('pdf-parse')
-      const pdfParse = (pdfParseModule as any).default || pdfParseModule
-      const result = await pdfParse(buffer)
-      text = result.text
+      const PDFParser = require('pdf2json')
+      text = await new Promise((resolve, reject) => {
+        const parser = new PDFParser(null, 1)
+        parser.on('pdfParser_dataReady', () => {
+          resolve(parser.getRawTextContent())
+        })
+        parser.on('pdfParser_dataError', (err: any) => {
+          reject(new Error(err.parserError || 'PDF parse failed'))
+        })
+        parser.parseBuffer(buffer)
+      })
     } else {
       return NextResponse.json({ error: 'Unsupported file type. Please upload .docx or .pdf' }, { status: 400 })
     }
 
-    text = text.trim()
+    text = (text as string).trim()
 
     if (!text) {
       return NextResponse.json({ error: 'Could not extract text from file' }, { status: 400 })
