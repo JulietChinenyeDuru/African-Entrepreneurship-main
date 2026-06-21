@@ -555,17 +555,30 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
               {historyTab === 'cover' && (
                 <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: 14, color: '#1F2937', lineHeight: 1.7, margin: 0 }}>{selectedApp.cover_letter || 'No cover letter saved.'}</pre>
               )}
-              {historyTab === 'interview' && (
-                <div style={{ fontSize: 14, color: '#1F2937', lineHeight: 1.7 }}>
-                  {selectedApp.interview_prep ? (
-                    <>
-                      {selectedApp.interview_prep.likelyQuestions?.length > 0 && (<><strong style={{ display: 'block', marginBottom: 8, color: '#1E40AF' }}>Likely Questions</strong>{selectedApp.interview_prep.likelyQuestions.map((q: string, i: number) => (<div key={i} style={{ marginBottom: 6 }}>• {q}</div>))}</>)}
-                      {selectedApp.interview_prep.talkingPoints?.length > 0 && (<><strong style={{ display: 'block', margin: '16px 0 8px', color: '#1E40AF' }}>Talking Points</strong>{selectedApp.interview_prep.talkingPoints.map((t: string, i: number) => (<div key={i} style={{ marginBottom: 6 }}>• {t}</div>))}</>)}
-                      {selectedApp.interview_prep.questionsToAsk?.length > 0 && (<><strong style={{ display: 'block', margin: '16px 0 8px', color: '#1E40AF' }}>Questions to Ask</strong>{selectedApp.interview_prep.questionsToAsk.map((q: string, i: number) => (<div key={i} style={{ marginBottom: 6 }}>• {q}</div>))}</>)}
-                    </>
-                  ) : 'No interview prep saved.'}
-                </div>
-              )}
+              {historyTab === 'interview' && (() => {
+                const raw = selectedApp.interview_prep
+                const prep = typeof raw === 'string' ? (() => { try { return JSON.parse(raw) } catch { return null } })() : raw
+                return (
+                  <div style={{ fontSize: 14, color: '#1F2937', lineHeight: 1.7 }}>
+                    {prep ? (
+                      <>
+                        {(prep.likelyQuestions || prep.likely_questions || []).length > 0 && (
+                          <><strong style={{ display: 'block', marginBottom: 8, color: '#1E40AF' }}>🎯 Likely Questions</strong>
+                          {(prep.likelyQuestions || prep.likely_questions || []).map((q: string, i: number) => (<div key={i} style={{ marginBottom: 8, padding: '8px 12px', background: '#EFF6FF', borderRadius: 6 }}>• {q}</div>))}</>
+                        )}
+                        {(prep.talkingPoints || prep.talking_points || []).length > 0 && (
+                          <><strong style={{ display: 'block', margin: '16px 0 8px', color: '#1E40AF' }}>💡 Talking Points</strong>
+                          {(prep.talkingPoints || prep.talking_points || []).map((t: string, i: number) => (<div key={i} style={{ marginBottom: 8, padding: '8px 12px', background: '#F0FDF4', borderRadius: 6 }}>• {t}</div>))}</>
+                        )}
+                        {(prep.questionsToAsk || prep.questions_to_ask || []).length > 0 && (
+                          <><strong style={{ display: 'block', margin: '16px 0 8px', color: '#1E40AF' }}>❓ Questions to Ask</strong>
+                          {(prep.questionsToAsk || prep.questions_to_ask || []).map((q: string, i: number) => (<div key={i} style={{ marginBottom: 8, padding: '8px 12px', background: '#FEF3C7', borderRadius: 6 }}>• {q}</div>))}</>
+                        )}
+                      </>
+                    ) : <p style={{ color: '#6B7280' }}>No interview prep saved for this application.</p>}
+                  </div>
+                )
+              })()}
             </div>
           </div>
         </div>
