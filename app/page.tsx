@@ -5,9 +5,9 @@ import { CheckCircle, Zap, Bell, Search, FileText, ArrowRight, Star, Mail, Messa
 
 const FEATURES = [
   { icon: FileText, title: 'Smart CV analysis', desc: 'AI reads your CV, extracts your skills, scores ATS readiness, and tells you exactly what to improve.' },
-  { icon: Search, title: 'Job matching agent', desc: 'Finds roles that genuinely match your profile across Reed, Careerjet, and more — ranked by fit.' },
-  { icon: Zap, title: 'Per-role CV tailoring', desc: 'Rewrites your CV for each specific job — mirroring the employer\'s language to pass ATS filters.' },
-  { icon: Mail, title: 'Auto-apply via email', desc: 'Sends your application from YOUR email address — recruiter sees a real human email, not a bulk tool.' },
+  { icon: Search, title: 'Job matching agent', desc: 'Finds roles that genuinely match your profile across Reed, Careerjet, and more, ranked by fit.' },
+  { icon: Zap, title: 'Per-role CV tailoring', desc: 'Rewrites your CV for each specific job, mirroring the employer\'s language to pass ATS filters.' },
+  { icon: Mail, title: 'Auto-apply via email', desc: 'Sends your application from YOUR email address, recruiter sees a real human email, not a bulk tool.' },
   { icon: Bell, title: 'Real-time tracking', desc: 'Get notified the moment a recruiter opens your CV, replies, or schedules an interview.' },
 ]
 
@@ -20,12 +20,12 @@ const PLANS = [
   {
     name: 'Pro', price: '£12.99', period: 'per month',
     features: ['100 applications per month', 'CV tailoring per role', 'Cover letter generation', 'ATS keyword analysis', 'Auto-apply via your email', 'Email + SMS notifications', 'Interview prep tips'],
-    cta: 'Start Pro — £12.99/mo', href: '/auth?plan=pro', highlight: true,
+    cta: 'Start Pro, £12.99/mo', href: '/auth?plan=pro', highlight: true,
   },
   {
     name: 'Global', price: '£4.99', period: 'per month',
     features: ['30 applications per month', 'CV tailoring per role', 'Cover letter generation', 'ATS keyword analysis', 'Auto-apply via your email'],
-    cta: 'Start Global — £4.99/mo', href: '/auth?plan=africa', highlight: false,
+    cta: 'Start Global, £4.99/mo', href: '/auth?plan=africa', highlight: false,
     note: 'For African job seekers',
   },
 ]
