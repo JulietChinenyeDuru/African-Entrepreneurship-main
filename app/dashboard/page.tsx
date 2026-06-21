@@ -247,7 +247,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
     window.location.href = url
   }
 
-  const lbl: any = { fontSize: 16, fontWeight: 500, color: '#475569', display: 'block', marginBottom: 6 }
+  const lbl: any = { fontSize: 16, fontWeight: 500, color: '#F8FAFC', display: 'block', marginBottom: 6 }
   const inp: any = { width: '100%', padding: '10px 12px', border: '1px solid #1E3A8A', borderRadius: 8, fontSize: 18, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', background: '#1E293B', color: '#F8FAFC' }
 
   if (authLoading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}><p>Loading...</p></div>
@@ -259,7 +259,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           {profile?.plan === 'free' && <button onClick={upgradeNow} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '6px 14px', borderRadius: 7, fontSize: 16, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit' }}><Crown size={12}/>Upgrade Pro</button>}
           {profile?.plan !== 'free' && <span style={{ fontSize: 16, color: '#1E40AF', display: 'flex', alignItems: 'center', gap: 4 }}><Crown size={12}/>{profile?.plan === 'africa' ? 'Global' : 'Pro'}</span>}
-          <button onClick={signOut} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#64748B', display: 'flex', alignItems: 'center', gap: 4, fontSize: 17, fontFamily: 'inherit' }}><LogOut size={13}/>Sign out</button>
+          <button onClick={signOut} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#CBD5E1', display: 'flex', alignItems: 'center', gap: 4, fontSize: 17, fontFamily: 'inherit' }}><LogOut size={13}/>Sign out</button>
         </div>
       </nav>
 
@@ -271,7 +271,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
                 <span style={{ fontSize: 17, fontWeight: 500 }}>Free plan — {freeRemaining} applications remaining this month</span>
-                <span style={{ fontSize: 16, color: '#64748B' }}>5 per month</span>
+                <span style={{ fontSize: 16, color: '#CBD5E1' }}>5 per month</span>
               </div>
               <div style={{ height: 4, background: '#BFDBFE', borderRadius: 2, overflow: 'hidden' }}>
                 <div style={{ height: '100%', background: freeRemaining > 2 ? '#1E40AF' : '#BA7517', borderRadius: 2, width: `${((5 - freeRemaining) / 5) * 100}%` }}/>
@@ -324,12 +324,12 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                 </div>
                 {error === 'limit' && (
                   <div style={{ background: '#FAEEDA', border: '1px solid #FAC775', borderRadius: 8, padding: '14px 16px', marginBottom: 16 }}>
-                    <div style={{ fontWeight: 500, fontSize: 18, color: '#633806', marginBottom: 4 }}>Monthly limit reached</div>
-                    <p style={{ fontSize: 17, color: '#854F0B', margin: '0 0 12px' }}>Upgrade to Pro for 100 applications/month.</p>
+                    <div style={{ fontWeight: 500, fontSize: 18, color: '#FDE68A', marginBottom: 4 }}>Monthly limit reached</div>
+                    <p style={{ fontSize: 17, color: '#FDE68A', margin: '0 0 12px' }}>Upgrade to Pro for 100 applications/month.</p>
                     <button onClick={upgradeNow} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '9px 18px', borderRadius: 7, fontSize: 17, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>Upgrade to Pro →</button>
                   </div>
                 )}
-                {error && error !== 'limit' && <div style={{ display: 'flex', gap: 8, background: '#fff5f5', border: '1px solid #F09595', borderRadius: 8, padding: '10px 12px', marginBottom: 16 }}><AlertCircle size={14} color="#A32D2D"/><span style={{ fontSize: 17, color: '#A32D2D' }}>{error}</span></div>}
+                {error && error !== 'limit' && <div style={{ display: 'flex', gap: 8, background: '#fff5f5', border: '1px solid #F09595', borderRadius: 8, padding: '10px 12px', marginBottom: 16 }}><AlertCircle size={14} color="#A32D2D"/><span style={{ fontSize: 17, color: '#FCA5A5' }}>{error}</span></div>}
                 <button onClick={runAgent} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '12px 28px', borderRadius: 9, fontSize: 18, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'inherit' }}>
                   <Zap size={14}/>Run ApplyAI agent
                 </button>
@@ -345,7 +345,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                 <h3 style={{ fontSize: 20, fontWeight: 500, margin: '0 0 8px' }}>
                   {step === 'profile' ? 'Analysing your CV...' : step === 'jobs' ? 'Finding matching jobs...' : 'Tailoring your CV...'}
                 </h3>
-                <p style={{ fontSize: 17, color: '#64748B', margin: 0 }}>This usually takes under a minute</p>
+                <p style={{ fontSize: 17, color: '#CBD5E1', margin: 0 }}>This usually takes under a minute</p>
               </div>
             )}
 
@@ -358,13 +358,13 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                     <div>
                       <div style={{ fontSize: 16, color: '#1E40AF', fontWeight: 500, marginBottom: 4 }}>BEST MATCH — {result.topJob.matchScore}%</div>
                       <h3 style={{ fontSize: 21, fontWeight: 500, margin: '0 0 4px' }}>{result.topJob.title}</h3>
-                      <div style={{ fontSize: 18, color: '#475569' }}>{result.topJob.company} · {result.topJob.location} · {result.topJob.salary}</div>
+                      <div style={{ fontSize: 18, color: '#F8FAFC' }}>{result.topJob.company} · {result.topJob.location} · {result.topJob.salary}</div>
                 <a href={result.topJob.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 18, color: '#1E40AF', fontWeight: 500, textDecoration: 'underline' }}>View posting →</a>
                     </div>
-                    <div style={{ background: '#DBEAFE', color: '#1E3A8A', fontWeight: 500, fontSize: 22, padding: '8px 14px', borderRadius: 8 }}>{result.topJob.matchScore}%</div>
+                    <div style={{ background: '#DBEAFE', color: '#93C5FD', fontWeight: 500, fontSize: 22, padding: '8px 14px', borderRadius: 8 }}>{result.topJob.matchScore}%</div>
                   </div>
                   {result.recruiterEmail && (
-                    <div style={{ fontSize: 16, color: '#475569', marginBottom: 12 }}>
+                    <div style={{ fontSize: 16, color: '#F8FAFC', marginBottom: 12 }}>
                       📧 Recruiter email found: <strong>{result.recruiterEmail}</strong>
                     </div>
                   )}
@@ -385,8 +385,8 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                   ) : (
                     <div style={{ background: '#FAEEDA', borderRadius: 8, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
                       <Mail size={14} color="#854F0B"/>
-                      <span style={{ fontSize: 16, color: '#854F0B', flex: 1 }}>Set up auto-apply to send this from your email automatically</span>
-                      <button onClick={() => setTab('account')} style={{ fontSize: 15, color: '#854F0B', background: '#FAEEDA', border: '1px solid #FAC775', padding: '3px 10px', borderRadius: 6, cursor: 'pointer', fontFamily: 'inherit' }}>Set up →</button>
+                      <span style={{ fontSize: 16, color: '#FDE68A', flex: 1 }}>Set up auto-apply to send this from your email automatically</span>
+                      <button onClick={() => setTab('account')} style={{ fontSize: 15, color: '#FDE68A', background: '#FAEEDA', border: '1px solid #FAC775', padding: '3px 10px', borderRadius: 6, cursor: 'pointer', fontFamily: 'inherit' }}>Set up →</button>
                     </div>
                   )}
                 </div>
@@ -409,7 +409,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                         {s.content ? (
                           <>
                             <pre style={{ fontSize: 17, lineHeight: 1.7, whiteSpace: 'pre-wrap', margin: '12px 0 8px', fontFamily: 'inherit' }}>{s.content}</pre>
-                            <button onClick={() => copyText(s.content!, s.key)} style={{ fontSize: 15, color: '#64748B', background: '#0F172A', border: '1px solid #BFDBFE', borderRadius: 6, padding: '4px 12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 5 }}>
+                            <button onClick={() => copyText(s.content!, s.key)} style={{ fontSize: 15, color: '#CBD5E1', background: '#0F172A', border: '1px solid #BFDBFE', borderRadius: 6, padding: '4px 12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 5 }}>
                               {copied === s.key ? <><CheckCircle size={11} color="#1E40AF"/>Copied!</> : <><Copy size={11}/>Copy</>}
                             </button>
                           <button onClick={() => downloadFile(s.title, s.content!, "docx")} style={{ fontSize: 15, color: "#64748B", background: "#F0F4FF", border: "1px solid #BFDBFE", borderRadius: 6, padding: "4px 12px", cursor: "pointer", fontFamily: "inherit", marginLeft: 6 }}>Download Word</button>
@@ -419,7 +419,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                           <div style={{ paddingTop: 10 }}>
                             {result.atsKeywords && Object.entries({ 'Must-have': result.atsKeywords.mustHave, 'Technical': result.atsKeywords.technicalSkills, 'Soft skills': result.atsKeywords.softSkills, 'Already in CV': result.atsKeywords.alreadyInCv }).map(([lbl, words]: any) => words?.length ? (
                               <div key={lbl} style={{ marginBottom: 10 }}>
-                                <div style={{ fontSize: 15, fontWeight: 500, color: '#64748B', marginBottom: 5 }}>{lbl.toUpperCase()}</div>
+                                <div style={{ fontSize: 15, fontWeight: 500, color: '#CBD5E1', marginBottom: 5 }}>{lbl.toUpperCase()}</div>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
                                   {words.map((w: string) => <span key={w} style={{ fontSize: 15, padding: '2px 8px', borderRadius: 8, background: lbl === 'Already in CV' ? '#DBEAFE' : '#F1EFE8', color: lbl === 'Already in CV' ? '#1E3A8A' : '#444441' }}>{w}</span>)}
                                 </div>
@@ -431,7 +431,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                             {profile?.plan === 'free' ? (
                               <div style={{ textAlign: 'center', padding: '24px 10px' }}>
                                 <Lock size={22} color="#64748B" style={{ marginBottom: 10 }}/>
-                                <p style={{ fontSize: 17, color: '#475569', margin: '0 0 14px', lineHeight: 1.6 }}>
+                                <p style={{ fontSize: 17, color: '#F8FAFC', margin: '0 0 14px', lineHeight: 1.6 }}>
                                   Interview preparation — likely questions, key talking points, and questions to ask — is a Pro feature.
                                 </p>
                                 <button onClick={upgradeNow} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '9px 18px', borderRadius: 7, fontSize: 17, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
@@ -442,7 +442,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                               <>
                                 {result.interviewPrep?.likelyQuestions?.length > 0 && (
                                   <div style={{ marginBottom: 16 }}>
-                                    <div style={{ fontSize: 15, fontWeight: 500, color: '#64748B', marginBottom: 8 }}>LIKELY QUESTIONS</div>
+                                    <div style={{ fontSize: 15, fontWeight: 500, color: '#CBD5E1', marginBottom: 8 }}>LIKELY QUESTIONS</div>
                                     {result.interviewPrep.likelyQuestions.map((q: string, i: number) => (
                                       <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'flex-start', marginBottom: 7 }}>
                                         <MessageSquare size={13} color="#1E40AF" style={{ flexShrink: 0, marginTop: 1 }}/>
@@ -453,7 +453,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                                 )}
                                 {result.interviewPrep?.talkingPoints?.length > 0 && (
                                   <div style={{ marginBottom: 16 }}>
-                                    <div style={{ fontSize: 15, fontWeight: 500, color: '#64748B', marginBottom: 8 }}>KEY TALKING POINTS</div>
+                                    <div style={{ fontSize: 15, fontWeight: 500, color: '#CBD5E1', marginBottom: 8 }}>KEY TALKING POINTS</div>
                                     {result.interviewPrep.talkingPoints.map((p: string, i: number) => (
                                       <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'flex-start', marginBottom: 7 }}>
                                         <CheckCircle size={13} color="#1E40AF" style={{ flexShrink: 0, marginTop: 1 }}/>
@@ -464,7 +464,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                                 )}
                                 {result.interviewPrep?.questionsToAsk?.length > 0 && (
                                   <div>
-                                    <div style={{ fontSize: 15, fontWeight: 500, color: '#64748B', marginBottom: 8 }}>QUESTIONS TO ASK THEM</div>
+                                    <div style={{ fontSize: 15, fontWeight: 500, color: '#CBD5E1', marginBottom: 8 }}>QUESTIONS TO ASK THEM</div>
                                     {result.interviewPrep.questionsToAsk.map((q: string, i: number) => (
                                       <div key={i} style={{ display: 'flex', gap: 7, alignItems: 'flex-start', marginBottom: 7 }}>
                                         <ArrowRight size={13} color="#1E40AF" style={{ flexShrink: 0, marginTop: 1 }}/>
@@ -500,7 +500,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
         {tab === 'applications' && (
           <div>
             {applications.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '60px 20px', color: '#64748B' }}>
+              <div style={{ textAlign: 'center', padding: '60px 20px', color: '#CBD5E1' }}>
                 <Briefcase size={32} style={{ marginBottom: 12, opacity: 0.4 }}/>
                 <p style={{ fontSize: 19 }}>No applications yet.</p>
                 <button onClick={() => setTab('run')} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: 8, fontSize: 17, fontWeight: 500, cursor: 'pointer', marginTop: 12, fontFamily: 'inherit' }}>Apply now</button>
@@ -511,7 +511,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                   <div key={app.id} style={{ background: '#111827', border: '1px solid #1E3A8A', borderRadius: 10, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 14 }}>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: 18, fontWeight: 500 }}>{app.job_title}</div>
-                      <div style={{ fontSize: 16, color: '#64748B', marginTop: 2 }}>{app.company} · {app.location} · {new Date(app.submitted_at).toLocaleDateString()}</div>
+                      <div style={{ fontSize: 16, color: '#CBD5E1', marginTop: 2 }}>{app.company} · {app.location} · {new Date(app.submitted_at).toLocaleDateString()}</div>
                       {app.submission_method === 'email' && <div style={{ fontSize: 15, color: '#1E40AF', marginTop: 3 }}>📧 Sent via email</div>}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
@@ -533,18 +533,18 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
               <h2 style={{ fontSize: 19, fontWeight: 500, margin: '0 0 16px' }}>Account details</h2>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 16 }}>
                 <div style={{ background: '#0F172A', borderRadius: 8, padding: '12px 14px' }}>
-                  <div style={{ fontSize: 15, color: '#64748B', marginBottom: 3 }}>Email</div>
+                  <div style={{ fontSize: 15, color: '#CBD5E1', marginBottom: 3 }}>Email</div>
                   <div style={{ fontSize: 17, fontWeight: 500 }}>{user?.email}</div>
                 </div>
                 <div style={{ background: '#0F172A', borderRadius: 8, padding: '12px 14px' }}>
-                  <div style={{ fontSize: 15, color: '#64748B', marginBottom: 3 }}>Plan</div>
+                  <div style={{ fontSize: 15, color: '#CBD5E1', marginBottom: 3 }}>Plan</div>
                   <div style={{ fontSize: 17, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 5 }}>
                     {profile?.plan !== 'free' && <Crown size={13} color="#1E40AF"/>}
                     {profile?.plan === 'pro' ? 'Pro' : profile?.plan === 'africa' ? 'Global' : 'Free'}
                   </div>
                 </div>
                 <div style={{ background: '#0F172A', borderRadius: 8, padding: '12px 14px' }}>
-                  <div style={{ fontSize: 15, color: '#64748B', marginBottom: 3 }}>Applications this month</div>
+                  <div style={{ fontSize: 15, color: '#CBD5E1', marginBottom: 3 }}>Applications this month</div>
                   <div style={{ fontSize: 17, fontWeight: 500 }}>{profile?.applications_used_month || 0}{profile?.plan === 'free' ? ' / 5' : profile?.plan === 'africa' ? ' / 30' : ' / 100'}</div>
                 </div>
               </div>
@@ -560,7 +560,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
               <h2 style={{ fontSize: 19, fontWeight: 500, margin: '0 0 6px', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Mail size={16} color="#1E40AF"/>Auto-apply email setup
               </h2>
-              <p style={{ fontSize: 17, color: '#475569', margin: '0 0 20px', lineHeight: 1.6 }}>
+              <p style={{ fontSize: 17, color: '#F8FAFC', margin: '0 0 20px', lineHeight: 1.6 }}>
                 ApplyAI sends job applications from YOUR email address. Recruiters see a real human email — not a bulk tool. You receive a copy of every email sent.
               </p>
 
@@ -582,7 +582,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                 <label style={lbl}>App password (NOT your regular password)</label>
                 <div style={{ position: 'relative' }}>
                   <input type={showPassword ? 'text' : 'password'} value={appPassword} onChange={e => setAppPassword(e.target.value)} placeholder="16-character app password" style={{ ...inp, paddingRight: 40 }}/>
-                  <button onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#64748B', padding: 2 }}>
+                  <button onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#CBD5E1', padding: 2 }}>
                     {showPassword ? <EyeOff size={14}/> : <Eye size={14}/>}
                   </button>
                 </div>
@@ -590,7 +590,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
 
               {/* How to get app password */}
               <div style={{ background: '#DBEAFE', border: '1px solid #9FE1CB', borderRadius: 8, padding: '12px 14px', marginBottom: 16 }}>
-                <div style={{ fontSize: 16, fontWeight: 500, color: '#1E3A8A', marginBottom: 6 }}>
+                <div style={{ fontSize: 16, fontWeight: 500, color: '#93C5FD', marginBottom: 6 }}>
                   How to get a {emailProvider === 'gmail' ? 'Gmail' : emailProvider === 'outlook' ? 'Outlook' : 'Yahoo'} app password:
                 </div>
                 {emailProvider === 'gmail' && (
