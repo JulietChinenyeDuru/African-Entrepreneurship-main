@@ -82,7 +82,7 @@ export default function HomePage() {
           Land your dream job with AI on your side
         </h1>
         <p style={{ fontSize: 17, color: '#5F5E5A', margin: '0 auto 36px', lineHeight: 1.7, maxWidth: 540 }}>
-          ApplyAI tailors your CV and cover letter to every job in seconds — and prepares you for the interview.
+          ApplyAI tailors your CV and cover letter to every job in seconds: and prepares you for the interview.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href="/auth" style={{ background: '#1E40AF', color: '#fff', padding: '14px 32px', borderRadius: 10, fontSize: 15, fontWeight: 500, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
