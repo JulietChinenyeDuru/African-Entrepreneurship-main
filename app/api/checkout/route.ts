@@ -27,5 +27,5 @@ export async function POST(req: NextRequest) {
   const url = await createCheckoutSession(
     user.id, user.email!, priceId, profile?.stripe_customer_id
   )
-  return NextResponse.json({ url, plan: isAfrican ? 'africa' : 'pro' })
+  return NextResponse.json({ url, plan: isAfrican ? 'global' : 'pro' })
 }

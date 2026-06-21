@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       const isActive = ['active', 'trialing'].includes(sub.status)
       // Determine plan based on price ID
       const priceId = sub.items.data[0]?.price.id
-      const plan = priceId === process.env.STRIPE_AFRICA_PRICE_ID ? 'africa'
+      const plan = priceId === process.env.STRIPE_AFRICA_PRICE_ID ? 'global'
                  : isActive ? 'pro' : 'free'
       await supabase.from('profiles')
         .update({ plan, stripe_subscription_id: sub.id })
