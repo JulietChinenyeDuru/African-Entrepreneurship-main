@@ -310,8 +310,8 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
 
               {/* Job Description */}
               <div style={{ marginBottom: 14 }}>
-                <label style={{ ...lbl }}>Job description <span style={{ fontWeight: 400, color: "#888780" }}>(auto-filled or paste manually)</span></label>
-                <textarea value={jobDesc} onChange={e => setJobDesc(e.target.value)} rows={6} placeholder="Paste the job description here, or use the Fetch button above..." style={{ ...inp, resize: "vertical" }}/>
+                <label style={{ ...lbl }}>Job description</label>
+                <textarea value={jobDesc} onChange={e => setJobDesc(e.target.value)} rows={6} placeholder="Paste the job description here..." style={{ ...inp, resize: "vertical" }}/>
               </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
