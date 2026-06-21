@@ -248,11 +248,11 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
   }
 
   const lbl: any = { fontSize: 16, fontWeight: 500, color: '#475569', display: 'block', marginBottom: 6 }
-  const inp: any = { width: '100%', padding: '10px 12px', border: '1px solid #BFDBFE', borderRadius: 8, fontSize: 18, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', background: '#F0F4FF' }
+  const inp: any = { width: '100%', padding: '10px 12px', border: '1px solid #BFDBFE', borderRadius: 8, fontSize: 18, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', background: '#0F172A' }
 
   if (authLoading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}><p>Loading...</p></div>
   return (
-    <div style={{ minHeight: '100vh', background: '#F0F4FF', fontFamily: "'DM Sans', sans-serif" }}>
+    <div style={{ minHeight: '100vh', background: '#0F172A', fontFamily: "'DM Sans', sans-serif" }}>
       {/* NAV */}
       <nav style={{ background: '#0F172A', height: 54, padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
         <span style={{ color: '#fff', fontWeight: 500, fontSize: 20 }}>Apply<span style={{ color: '#1E40AF' }}>AI</span></span>
@@ -266,7 +266,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
       <div style={{ maxWidth: 860, margin: '0 auto', padding: '24px 20px' }}>
         {/* Usage bar */}
         {profile?.plan === 'free' && (
-          <div style={{ background: '#fff', border: '1px solid #BFDBFE', borderRadius: 10, padding: '12px 16px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div style={{ background: '#111827', border: '1px solid #1E3A8A', borderRadius: 10, padding: '12px 16px', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 14 }}>
             <BarChart2 size={16} color="#1E40AF" style={{ flexShrink: 0 }}/>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
@@ -294,7 +294,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
         {tab === 'run' && (
           <div>
             {(step === 'idle' || step === 'error') && (
-              <div style={{ background: '#fff', border: '1px solid #BFDBFE', borderRadius: 12, padding: 24, marginBottom: 16 }}>
+              <div style={{ background: '#111827', border: '1px solid #1E3A8A', borderRadius: 12, padding: 24, marginBottom: 16 }}>
                 <h2 style={{ fontSize: 20, fontWeight: 500, margin: '0 0 20px' }}>Your job application details</h2>
                 <div style={{ marginBottom: 14 }}>
                   <label style={lbl}>Your CV (paste full text)</label>
@@ -338,7 +338,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
 
             {/* Progress */}
             {['profile','jobs','tailor'].includes(step) && (
-              <div style={{ background: '#fff', border: '1px solid #BFDBFE', borderRadius: 12, padding: 32, textAlign: 'center' }}>
+              <div style={{ background: '#111827', border: '1px solid #1E3A8A', borderRadius: 12, padding: 32, textAlign: 'center' }}>
                 <div style={{ width: 48, height: 48, background: '#DBEAFE', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
                   <Loader size={22} color="#1E40AF" style={{ animation: 'spin 1s linear infinite' }}/>
                 </div>
@@ -399,7 +399,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                   { key: 'changes', title: `Changes made (${result.changesMade?.length || 0})`, content: null },
                   { key: 'interview', title: 'Interview preparation', content: null },
                 ].map(s => (
-                  <div key={s.key} style={{ background: '#fff', border: '1px solid #BFDBFE', borderRadius: 10, marginBottom: 10, overflow: 'hidden' }}>
+                  <div key={s.key} style={{ background: '#111827', border: '1px solid #1E3A8A', borderRadius: 10, marginBottom: 10, overflow: 'hidden' }}>
                     <button onClick={() => setExpandedSection(expandedSection === s.key ? null : s.key)} style={{ width: '100%', padding: '14px 16px', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontFamily: 'inherit' }}>
                       <span style={{ fontSize: 18, fontWeight: 500 }}>{s.title}</span>
                       {expandedSection === s.key ? <ChevronUp size={15} color="#64748B"/> : <ChevronDown size={15} color="#64748B"/>}
@@ -409,7 +409,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                         {s.content ? (
                           <>
                             <pre style={{ fontSize: 17, lineHeight: 1.7, whiteSpace: 'pre-wrap', margin: '12px 0 8px', fontFamily: 'inherit' }}>{s.content}</pre>
-                            <button onClick={() => copyText(s.content!, s.key)} style={{ fontSize: 15, color: '#64748B', background: '#F0F4FF', border: '1px solid #BFDBFE', borderRadius: 6, padding: '4px 12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 5 }}>
+                            <button onClick={() => copyText(s.content!, s.key)} style={{ fontSize: 15, color: '#64748B', background: '#0F172A', border: '1px solid #BFDBFE', borderRadius: 6, padding: '4px 12px', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 5 }}>
                               {copied === s.key ? <><CheckCircle size={11} color="#1E40AF"/>Copied!</> : <><Copy size={11}/>Copy</>}
                             </button>
                           <button onClick={() => downloadFile(s.title, s.content!, "docx")} style={{ fontSize: 15, color: "#64748B", background: "#F0F4FF", border: "1px solid #BFDBFE", borderRadius: 6, padding: "4px 12px", cursor: "pointer", fontFamily: "inherit", marginLeft: 6 }}>Download Word</button>
@@ -508,7 +508,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {applications.map(app => (
-                  <div key={app.id} style={{ background: '#fff', border: '1px solid #BFDBFE', borderRadius: 10, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 14 }}>
+                  <div key={app.id} style={{ background: '#111827', border: '1px solid #1E3A8A', borderRadius: 10, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 14 }}>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: 18, fontWeight: 500 }}>{app.job_title}</div>
                       <div style={{ fontSize: 16, color: '#64748B', marginTop: 2 }}>{app.company} · {app.location} · {new Date(app.submitted_at).toLocaleDateString()}</div>
@@ -529,21 +529,21 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
         {tab === 'account' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {/* Plan info */}
-            <div style={{ background: '#fff', border: '1px solid #BFDBFE', borderRadius: 12, padding: 24 }}>
+            <div style={{ background: '#111827', border: '1px solid #1E3A8A', borderRadius: 12, padding: 24 }}>
               <h2 style={{ fontSize: 19, fontWeight: 500, margin: '0 0 16px' }}>Account details</h2>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 16 }}>
-                <div style={{ background: '#F0F4FF', borderRadius: 8, padding: '12px 14px' }}>
+                <div style={{ background: '#0F172A', borderRadius: 8, padding: '12px 14px' }}>
                   <div style={{ fontSize: 15, color: '#64748B', marginBottom: 3 }}>Email</div>
                   <div style={{ fontSize: 17, fontWeight: 500 }}>{user?.email}</div>
                 </div>
-                <div style={{ background: '#F0F4FF', borderRadius: 8, padding: '12px 14px' }}>
+                <div style={{ background: '#0F172A', borderRadius: 8, padding: '12px 14px' }}>
                   <div style={{ fontSize: 15, color: '#64748B', marginBottom: 3 }}>Plan</div>
                   <div style={{ fontSize: 17, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 5 }}>
                     {profile?.plan !== 'free' && <Crown size={13} color="#1E40AF"/>}
                     {profile?.plan === 'pro' ? 'Pro' : profile?.plan === 'africa' ? 'Global' : 'Free'}
                   </div>
                 </div>
-                <div style={{ background: '#F0F4FF', borderRadius: 8, padding: '12px 14px' }}>
+                <div style={{ background: '#0F172A', borderRadius: 8, padding: '12px 14px' }}>
                   <div style={{ fontSize: 15, color: '#64748B', marginBottom: 3 }}>Applications this month</div>
                   <div style={{ fontSize: 17, fontWeight: 500 }}>{profile?.applications_used_month || 0}{profile?.plan === 'free' ? ' / 5' : profile?.plan === 'africa' ? ' / 30' : ' / 100'}</div>
                 </div>
@@ -556,7 +556,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
             </div>
 
             {/* Auto-apply email setup */}
-            <div style={{ background: '#fff', border: '1px solid #BFDBFE', borderRadius: 12, padding: 24 }}>
+            <div style={{ background: '#111827', border: '1px solid #1E3A8A', borderRadius: 12, padding: 24 }}>
               <h2 style={{ fontSize: 19, fontWeight: 500, margin: '0 0 6px', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Mail size={16} color="#1E40AF"/>Auto-apply email setup
               </h2>
