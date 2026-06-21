@@ -81,7 +81,7 @@ export default function HomePage() {
         <h1 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: 500, lineHeight: 1.1, margin: '0 0 20px', letterSpacing: -1.5 }}>
           Land your dream job with AI on your side
         </h1>
-        <p style={{ fontSize: 17, color: '#5F5E5A', margin: '0 auto 36px', lineHeight: 1.7, maxWidth: 540 }}>
+        <p style={{ fontSize: 17, color: '#94A3B8', margin: '0 auto 36px', lineHeight: 1.7, maxWidth: 540 }}>
           ApplyAI tailors your CV and cover letter to every job in seconds: and prepares you for the interview.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -93,7 +93,7 @@ export default function HomePage() {
           {[['94%','ATS pass rate'],['3.2×','more interviews'],['Free','to start']].map(([n,l]) => (
             <div key={l} style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 28, fontWeight: 500, color: '#F8FAFC' }}>{n}</div>
-              <div style={{ fontSize: 13, color: '#64748B', marginTop: 2 }}>{l}</div>
+              <div style={{ fontSize: 13, color: '#94A3B8', marginTop: 2 }}>{l}</div>
             </div>
           ))}
         </div>
@@ -110,7 +110,7 @@ export default function HomePage() {
                   <f.icon size={18} color="#1E40AF"/>
                 </div>
                 <h3 style={{ fontSize: 14, fontWeight: 500, margin: '0 0 6px' }}>{f.title}</h3>
-                <p style={{ fontSize: 13, color: '#5F5E5A', margin: 0, lineHeight: 1.6 }}>{f.desc}</p>
+                <p style={{ fontSize: 13, color: '#94A3B8', margin: 0, lineHeight: 1.6 }}>{f.desc}</p>
               </div>
             ))}
           </div>
@@ -132,7 +132,7 @@ export default function HomePage() {
                 {plan.features.map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
                     <CheckCircle size={14} color="#1E40AF" style={{ flexShrink: 0 }}/>
-                    <span style={{ fontSize: 13, color: '#444441' }}>{f}</span>
+                    <span style={{ fontSize: 13, color: '#F8FAFC' }}>{f}</span>
                   </div>
                 ))}
                 <Link href={plan.href} style={{ display: 'block', marginTop: 20, padding: '12px', textAlign: 'center', background: plan.highlight ? '#1E40AF' : 'transparent', color: plan.highlight ? '#fff' : '#0F172A', border: plan.highlight ? 'none' : '1px solid #BFDBFE', borderRadius: 8, fontSize: 14, fontWeight: 500, textDecoration: 'none' }}>
@@ -169,10 +169,10 @@ export default function HomePage() {
 
         {showComments && (
           <div style={{ maxWidth: 700, margin: '32px auto 0', textAlign: 'left' }}>
-            {loadingReviews && <div style={{ color: '#888780' }}>Loading comments...</div>}
+            {loadingReviews && <div style={{ color: '#94A3B8' }}>Loading comments...</div>}
 
             {!loadingReviews && reviews.length === 0 && (
-              <div style={{ color: '#888780' }}>No comments yet. Be the first to leave one!</div>
+              <div style={{ color: '#94A3B8' }}>No comments yet. Be the first to leave one!</div>
             )}
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -189,7 +189,7 @@ export default function HomePage() {
                   <div style={{ fontSize: 16, color: '#1E40AF', marginBottom: 6 }}>
                     {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
                   </div>
-                  <div style={{ fontSize: 14, color: '#3A3A36', lineHeight: 1.6 }}>
+                  <div style={{ fontSize: 14, color: '#F8FAFC', lineHeight: 1.6 }}>
                     {review.comment}
                   </div>
                 </div>
@@ -201,10 +201,10 @@ export default function HomePage() {
 
       {/* FOOTER */}
       <footer style={{ background: '#0F172A', padding: '20px 5vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
-        <span style={{ color: '#334155', fontSize: 13 }}>© 2025 ApplyAI · jobapp.best</span>
+        <span style={{ color: '#F8FAFC', fontSize: 13 }}>© 2025 ApplyAI · jobapp.best</span>
         <div style={{ display: 'flex', gap: 20 }}>
-          <a href="/privacy" style={{ color: '#64748B', fontSize: 13, textDecoration: 'none' }}>Privacy</a>
-          <a href="/terms" style={{ color: '#64748B', fontSize: 13, textDecoration: 'none' }}>Terms</a>
+          <a href="/privacy" style={{ color: '#94A3B8', fontSize: 13, textDecoration: 'none' }}>Privacy</a>
+          <a href="/terms" style={{ color: '#94A3B8', fontSize: 13, textDecoration: 'none' }}>Terms</a>
         </div>
       </footer>
     </div>
