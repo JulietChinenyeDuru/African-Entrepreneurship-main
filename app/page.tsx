@@ -79,7 +79,7 @@ export default function HomePage() {
           AI-POWERED JOB AGENT
         </div>
         <h1 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: 500, lineHeight: 1.1, margin: '0 0 20px', letterSpacing: -1.5 }}>
-          Land your dream job<br/><span style={{ color: '#93C5FD' }}>with AI on your side</span>
+          Land your dream job with AI on your side
         </h1>
         <p style={{ fontSize: 17, color: '#5F5E5A', margin: '0 auto 36px', lineHeight: 1.7, maxWidth: 540 }}>
           ApplyAI tailors your CV and cover letter to every job in seconds — and prepares you for the interview.
@@ -92,7 +92,7 @@ export default function HomePage() {
         <div style={{ display: 'flex', gap: 40, justifyContent: 'center', marginTop: 48, flexWrap: 'wrap' }}>
           {[['94%','ATS pass rate'],['3.2×','more interviews'],['Free','to start']].map(([n,l]) => (
             <div key={l} style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 24, fontWeight: 500, color: '#F8FAFC' }}>{n}</div>
+              <div style={{ fontSize: 28, fontWeight: 500, color: '#F8FAFC' }}>{n}</div>
               <div style={{ fontSize: 13, color: '#64748B', marginTop: 2 }}>{l}</div>
             </div>
           ))}
