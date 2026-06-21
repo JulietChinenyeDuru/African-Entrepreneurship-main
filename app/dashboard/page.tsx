@@ -19,6 +19,8 @@ export default function Dashboard() {
   const [authLoading, setAuthLoading] = useState(true)
   const [profile, setProfile] = useState<any>(null)
   const [applications, setApplications] = useState<any[]>([])
+  const [selectedApp, setSelectedApp] = useState<any | null>(null)
+  const [historyTab, setHistoryTab] = useState<'cv' | 'cover' | 'interview'>('cv')
   const [tab, setTab] = useState<Tab>('run')
   // Form state
   const [cv, setCv] = useState('')
@@ -508,7 +510,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {applications.map(app => (
-                  <div key={app.id} style={{ background: '#DBEAFE', border: '1px solid #BFDBFE', borderRadius: 10, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 14 }}>
+                  <div key={app.id} onClick={() => { setSelectedApp(app); setHistoryTab('cv') }} style={{ background: '#DBEAFE', border: '1px solid #BFDBFE', borderRadius: 10, padding: '14px 16px', display: 'flex', alignItems: 'center', gap: 14, cursor: 'pointer' }}>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontSize: 18, fontWeight: 500 }}>{app.job_title}</div>
                       <div style={{ fontSize: 16, color: '#374151', marginTop: 2 }}>{app.company} · {app.location} · {new Date(app.submitted_at).toLocaleDateString()}</div>
@@ -525,7 +527,51 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
           </div>
         )}
 
-        {/* ACCOUNT TAB */}
+        {/* SAVED APP MODAL */}
+      {selectedApp && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+          <div style={{ background: '#fff', borderRadius: 16, width: '100%', maxWidth: 720, maxHeight: '90vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
+            {/* Modal Header */}
+            <div style={{ padding: '20px 24px', borderBottom: '1px solid #BFDBFE', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 18, color: '#0F172A' }}>{selectedApp.job_title}</div>
+                <div style={{ fontSize: 13, color: '#6B7280', marginTop: 2 }}>{selectedApp.company} · {selectedApp.location} · {selectedApp.submitted_at ? new Date(selectedApp.submitted_at).toLocaleDateString() : ''}</div>
+              </div>
+              <button onClick={() => setSelectedApp(null)} style={{ background: '#EFF6FF', border: 'none', borderRadius: 8, padding: '8px 14px', cursor: 'pointer', fontWeight: 600, fontSize: 18, color: '#1E40AF' }}>✕</button>
+            </div>
+            {/* Tabs */}
+            <div style={{ display: 'flex', gap: 8, padding: '16px 24px', borderBottom: '1px solid #BFDBFE' }}>
+              {(['cv', 'cover', 'interview'] as const).map(t => (
+                <button key={t} onClick={() => setHistoryTab(t)} style={{ padding: '8px 18px', borderRadius: 8, border: 'none', cursor: 'pointer', fontWeight: 500, fontSize: 13, background: historyTab === t ? '#1E40AF' : '#EFF6FF', color: historyTab === t ? '#fff' : '#1E40AF' }}>
+                  {t === 'cv' ? '📄 Tailored CV' : t === 'cover' ? '✉️ Cover Letter' : '🎤 Interview Prep'}
+                </button>
+              ))}
+            </div>
+            {/* Content */}
+            <div style={{ overflowY: 'auto', padding: '20px 24px', flex: 1 }}>
+              {historyTab === 'cv' && (
+                <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: 14, color: '#1F2937', lineHeight: 1.7, margin: 0 }}>{selectedApp.tailored_cv || 'No tailored CV saved.'}</pre>
+              )}
+              {historyTab === 'cover' && (
+                <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: 14, color: '#1F2937', lineHeight: 1.7, margin: 0 }}>{selectedApp.cover_letter || 'No cover letter saved.'}</pre>
+              )}
+              {historyTab === 'interview' && (
+                <div style={{ fontSize: 14, color: '#1F2937', lineHeight: 1.7 }}>
+                  {selectedApp.interview_prep ? (
+                    <>
+                      {selectedApp.interview_prep.likelyQuestions?.length > 0 && (<><strong style={{ display: 'block', marginBottom: 8, color: '#1E40AF' }}>Likely Questions</strong>{selectedApp.interview_prep.likelyQuestions.map((q: string, i: number) => (<div key={i} style={{ marginBottom: 6 }}>• {q}</div>))}</>)}
+                      {selectedApp.interview_prep.talkingPoints?.length > 0 && (<><strong style={{ display: 'block', margin: '16px 0 8px', color: '#1E40AF' }}>Talking Points</strong>{selectedApp.interview_prep.talkingPoints.map((t: string, i: number) => (<div key={i} style={{ marginBottom: 6 }}>• {t}</div>))}</>)}
+                      {selectedApp.interview_prep.questionsToAsk?.length > 0 && (<><strong style={{ display: 'block', margin: '16px 0 8px', color: '#1E40AF' }}>Questions to Ask</strong>{selectedApp.interview_prep.questionsToAsk.map((q: string, i: number) => (<div key={i} style={{ marginBottom: 6 }}>• {q}</div>))}</>)}
+                    </>
+                  ) : 'No interview prep saved.'}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ACCOUNT TAB */}
         {tab === 'account' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {/* Plan info */}
