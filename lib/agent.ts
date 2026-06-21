@@ -69,8 +69,20 @@ export interface AgentResult {
 
 function parseJson(text: string, fallback: any = {}) {
   try {
-    return JSON.parse(text.replace(/```json|```/g, '').trim())
+    // First try direct parse after stripping markdown
+    const cleaned = text.replace(/```json|```/g, '').trim()
+    return JSON.parse(cleaned)
   } catch {
+    try {
+      // Try extracting JSON object from text using regex
+      const objMatch = text.match(/\{[\s\S]*\}/)
+      if (objMatch) return JSON.parse(objMatch[0])
+    } catch {}
+    try {
+      // Try extracting JSON array from text
+      const arrMatch = text.match(/\[[\s\S]*\]/)
+      if (arrMatch) return JSON.parse(arrMatch[0])
+    } catch {}
     return fallback
   }
 }
