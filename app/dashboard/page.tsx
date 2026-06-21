@@ -248,7 +248,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
   }
 
   const lbl: any = { fontSize: 16, fontWeight: 500, color: '#475569', display: 'block', marginBottom: 6 }
-  const inp: any = { width: '100%', padding: '10px 12px', border: '1px solid #BFDBFE', borderRadius: 8, fontSize: 18, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', background: '#0F172A' }
+  const inp: any = { width: '100%', padding: '10px 12px', border: '1px solid #1E3A8A', borderRadius: 8, fontSize: 18, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit', background: '#1E293B', color: '#F8FAFC' }
 
   if (authLoading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}><p>Loading...</p></div>
   return (
