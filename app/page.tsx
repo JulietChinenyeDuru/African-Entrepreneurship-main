@@ -123,12 +123,12 @@ export default function HomePage() {
           <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48 }} style={{ color: '#F8FAFC' }}>Start free. Upgrade when ready.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 20 }}>
             {PLANS.map(plan => (
-              <div key={plan.name} style={{ background: '#ffffff', borderRadius: 14, border: plan.highlight ? '2px solid #1E40AF' : '1px solid #E2E8F0', padding: '28px', position: 'relative' }}>
+              <div key={plan.name} style={{ background: '#0F172A', borderRadius: 14, border: plan.highlight ? '2px solid #1E40AF' : '1px solid #1E3A8A', padding: '28px', position: 'relative' }}>
                 {plan.highlight && <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: '#1E40AF', color: '#fff', fontSize: 11, fontWeight: 500, padding: '3px 14px', borderRadius: 10, whiteSpace: 'nowrap' }}>Most popular</div>}
                 {plan.note && <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: '#534AB7', color: '#fff', fontSize: 11, fontWeight: 500, padding: '3px 14px', borderRadius: 10, whiteSpace: 'nowrap' }}>{plan.note}</div>}
-                <div style={{ fontSize: 15, fontWeight: 500, marginBottom: 4, color: '#0F172A' }}>{plan.name}</div>
-                <div style={{ fontSize: 36, fontWeight: 600, letterSpacing: -1, color: '#0F172A' }}>{plan.price}</div>
-                <div style={{ fontSize: 13, color: '#64748B', marginBottom: 20 }}>{plan.period}</div>
+                <div style={{ fontSize: 15, fontWeight: 500, marginBottom: 4, color: '#F8FAFC' }}>{plan.name}</div>
+                <div style={{ fontSize: 36, fontWeight: 600, letterSpacing: -1, color: '#F8FAFC' }}>{plan.price}</div>
+                <div style={{ fontSize: 13, color: '#94A3B8', marginBottom: 20 }}>{plan.period}</div>
                 {plan.features.map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
                     <CheckCircle size={14} color="#1E40AF" style={{ flexShrink: 0 }}/>
