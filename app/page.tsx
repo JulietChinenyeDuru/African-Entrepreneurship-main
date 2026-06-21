@@ -92,7 +92,7 @@ export default function HomePage() {
         <div style={{ display: 'flex', gap: 40, justifyContent: 'center', marginTop: 48, flexWrap: 'wrap' }}>
           {[['94%','ATS pass rate'],['3.2×','more interviews'],['Free','to start']].map(([n,l]) => (
             <div key={l} style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 24, fontWeight: 500 }}>{n}</div>
+              <div style={{ fontSize: 24, fontWeight: 500, color: '#F8FAFC' }}>{n}</div>
               <div style={{ fontSize: 13, color: '#64748B', marginTop: 2 }}>{l}</div>
             </div>
           ))}
