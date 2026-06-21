@@ -27,10 +27,7 @@ export default function Dashboard() {
   const [salary, setSalary] = useState('')
   const [level, setLevel] = useState('')
   const [uploadStatus, setUploadStatus] = useState<string>('')
-  const [jobUrl, setJobUrl] = useState('')
   const [jobDesc, setJobDesc] = useState('')
-  const [fetchingJob, setFetchingJob] = useState(false)
-  const [fetchJobError, setFetchJobError] = useState('')
   const [reviewRating, setReviewRating] = useState(0)
   const [reviewComment, setReviewComment] = useState('')
   const [showCommentBox, setShowCommentBox] = useState(false)
@@ -100,22 +97,6 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
     } catch (err: any) {
       setUploadStatus("")
       setError("Upload failed: " + err.message)
-    }
-  }
-
-
-  const handleFetchJob = async () => {
-    if (!jobUrl.trim()) return
-    setFetchingJob(true); setFetchJobError("")
-    try {
-      const res = await fetch("/api/fetch-job", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: jobUrl }) })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || "Failed to fetch job")
-      setJobDesc(data.text)
-    } catch (err: any) {
-      setFetchJobError(err.message)
-    } finally {
-      setFetchingJob(false)
     }
   }
 
@@ -327,17 +308,6 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                   <textarea value={cv} onChange={e => setCv(e.target.value)} rows={8} placeholder="Paste your full CV — work history, skills, education, achievements..." style={{ ...inp, resize: 'vertical' }}/>
                 </div>
 
-              {/* Job URL */}
-              <div style={{ marginBottom: 14 }}>
-                <label style={{ ...lbl }}>Job posting URL</label>
-                <div style={{ display: "flex", gap: 8 }}>
-                  <input value={jobUrl} onChange={e => setJobUrl(e.target.value)} placeholder="https://reed.co.uk/jobs/..." style={{ ...inp, flex: 1 }}/>
-                  <button type="button" onClick={handleFetchJob} disabled={fetchingJob || !jobUrl.trim()} style={{ padding: "10px 18px", background: "#1D9E75", color: "#fff", border: "none", borderRadius: 8, fontSize: 14, fontWeight: 500, cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
-                    {fetchingJob ? "Fetching..." : "Fetch job"}
-                  </button>
-                </div>
-                {fetchJobError && <span style={{ fontSize: 13, color: "#A32D2D" }}>{fetchJobError}</span>}
-              </div>
               {/* Job Description */}
               <div style={{ marginBottom: 14 }}>
                 <label style={{ ...lbl }}>Job description <span style={{ fontWeight: 400, color: "#888780" }}>(auto-filled or paste manually)</span></label>
