@@ -52,7 +52,7 @@ export default function HomePage() {
     setShowComments(willShow)
   }
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#F0F4FF', color: '#0F172A', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#131C2E', color: '#F8FAFC', minHeight: '100vh' }}>
       {/* NAV */}
       <nav style={{ background: '#0F172A', padding: '0 5vw', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -75,7 +75,7 @@ export default function HomePage() {
 
       {/* HERO */}
       <section style={{ padding: '80px 5vw 60px', textAlign: 'center', background: '#0F172A' }}>
-        <div style={{ display: 'inline-block', background: '#DBEAFE', color: '#1E3A8A', fontSize: 12, fontWeight: 500, padding: '4px 14px', borderRadius: 20, marginBottom: 20, letterSpacing: '0.06em' }}>
+        <div style={{ display: 'inline-block', background: '#1E3A8A', color: '#1E3A8A', fontSize: 12, fontWeight: 500, padding: '4px 14px', borderRadius: 20, marginBottom: 20, letterSpacing: '0.06em' }}>
           AI-POWERED JOB AGENT
         </div>
         <h1 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: 500, lineHeight: 1.1, margin: '0 0 20px', letterSpacing: -1.5 }}>
@@ -100,13 +100,13 @@ export default function HomePage() {
       </section>
 
       {/* FEATURES */}
-      <section style={{ padding: '60px 5vw', background: '#fff' }} id="features">
+      <section style={{ padding: '60px 5vw', background: '#0D1526' }} id="features">
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
           <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48, letterSpacing: -0.5 }}>Five steps. Zero manual effort.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 20 }}>
             {FEATURES.map(f => (
-              <div key={f.title} style={{ padding: 20, background: '#F0F4FF', borderRadius: 12, border: '1px solid #BFDBFE' }}>
-                <div style={{ width: 36, height: 36, background: '#DBEAFE', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+              <div key={f.title} style={{ padding: 20, background: '#131C2E', borderRadius: 12, border: '1px solid #BFDBFE' }}>
+                <div style={{ width: 36, height: 36, background: '#1E3A8A', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
                   <f.icon size={18} color="#1E40AF"/>
                 </div>
                 <h3 style={{ fontSize: 14, fontWeight: 500, margin: '0 0 6px' }}>{f.title}</h3>
@@ -118,7 +118,7 @@ export default function HomePage() {
       </section>
 
       {/* PRICING */}
-      <section style={{ padding: '80px 5vw' }} id="pricing">
+      <section style={{ padding: '80px 5vw', background: '#0D1526' }} id="pricing">
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
           <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48 }}>Start free. Upgrade when ready.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 20 }}>
@@ -145,7 +145,7 @@ export default function HomePage() {
       </section>
 
       {/* COMMENTS */}
-      <section style={{ padding: '60px 5vw', background: '#fff', textAlign: 'center' }}>
+      <section style={{ padding: '60px 5vw', background: '#0D1526', textAlign: 'center' }}>
         <button
           onClick={toggleComments}
           style={{
@@ -156,7 +156,7 @@ export default function HomePage() {
             borderRadius: 8,
             border: '1px solid #BFDBFE',
             background: 'transparent',
-            color: '#0F172A',
+            color: '#F8FAFC',
             fontSize: 15,
             fontWeight: 500,
             cursor: 'pointer',
@@ -180,7 +180,7 @@ export default function HomePage() {
                 <div
                   key={i}
                   style={{
-                    background: '#F0F4FF',
+                    background: '#131C2E',
                     border: '1px solid #BFDBFE',
                     borderRadius: 12,
                     padding: 16,
