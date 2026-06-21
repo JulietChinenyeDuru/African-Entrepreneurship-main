@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
       </head>
-      <body style={{ margin: 0, fontFamily: "'DM Sans', sans-serif" }}>
+      <body style={{ margin: 0, fontFamily: "'DM Sans', sans-serif", background: '#0F172A', minHeight: '100vh' }}>
         {children}
           <footer style={{ textAlign: "center", padding: "16px", fontSize: 12, color: "#999" }}>
             Built by Juliet Chinenye Duru
