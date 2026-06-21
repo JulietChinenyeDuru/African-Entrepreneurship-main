@@ -102,7 +102,7 @@ export default function HomePage() {
       {/* FEATURES */}
       <section style={{ padding: '60px 5vw', background: '#0D1526' }} id="features">
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48, letterSpacing: -0.5 }} style={{ color: '#F8FAFC' }}>Five steps. Zero manual effort.</h2>
+          <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48, letterSpacing: -0.5, color: '#F8FAFC' }}>Five steps. Zero manual effort.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 20 }}>
             {FEATURES.map(f => (
               <div key={f.title} style={{ padding: 20, background: '#131C2E', borderRadius: 12, border: '1px solid #BFDBFE' }}>
@@ -120,7 +120,7 @@ export default function HomePage() {
       {/* PRICING */}
       <section style={{ padding: '80px 5vw', background: '#0D1526' }} id="pricing">
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48 }} style={{ color: '#F8FAFC' }}>Start free. Upgrade when ready.</h2>
+          <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48, color: '#F8FAFC' }}>Start free. Upgrade when ready.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 20 }}>
             {PLANS.map(plan => (
               <div key={plan.name} style={{ background: '#0F172A', borderRadius: 14, border: plan.highlight ? '2px solid #1E40AF' : '1px solid #1E3A8A', padding: '28px', position: 'relative' }}>
