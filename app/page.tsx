@@ -74,15 +74,15 @@ export default function HomePage() {
       </nav>
 
       {/* HERO */}
-      <section style={{ padding: '80px 5vw 60px', maxWidth: 760, margin: '0 auto', textAlign: 'center' }}>
+      <section style={{ padding: '80px 5vw 60px', textAlign: 'center', background: '#0F172A' }}>
         <div style={{ display: 'inline-block', background: '#DBEAFE', color: '#1E3A8A', fontSize: 12, fontWeight: 500, padding: '4px 14px', borderRadius: 20, marginBottom: 20, letterSpacing: '0.06em' }}>
           AI-POWERED JOB AGENT
         </div>
         <h1 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: 500, lineHeight: 1.1, margin: '0 0 20px', letterSpacing: -1.5 }}>
-          Upload your CV.<br/><span style={{ color: '#1E40AF' }}>Land your next role.</span>
+          Land your dream job<br/><span style={{ color: '#93C5FD' }}>with AI on your side</span>
         </h1>
         <p style={{ fontSize: 17, color: '#5F5E5A', margin: '0 auto 36px', lineHeight: 1.7, maxWidth: 540 }}>
-          ApplyAI tailors your CV for every job, sends applications from your own email, and notifies you when recruiters respond.
+          ApplyAI tailors your CV and cover letter to every job in seconds — and prepares you for the interview.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href="/auth" style={{ background: '#1E40AF', color: '#fff', padding: '14px 32px', borderRadius: 10, fontSize: 15, fontWeight: 500, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
@@ -93,7 +93,7 @@ export default function HomePage() {
           {[['94%','ATS pass rate'],['3.2×','more interviews'],['Free','to start']].map(([n,l]) => (
             <div key={l} style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 24, fontWeight: 500 }}>{n}</div>
-              <div style={{ fontSize: 13, color: '#888780', marginTop: 2 }}>{l}</div>
+              <div style={{ fontSize: 13, color: '#64748B', marginTop: 2 }}>{l}</div>
             </div>
           ))}
         </div>
