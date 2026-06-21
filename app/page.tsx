@@ -52,9 +52,9 @@ export default function HomePage() {
     setShowComments(willShow)
   }
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#131C2E', color: '#F8FAFC', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", background: '#FFFFFF', color: '#0F172A', minHeight: '100vh' }}>
       {/* NAV */}
-      <nav style={{ background: '#0F172A', padding: '0 5vw', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
+      <nav style={{ background: '#FFFFFF', padding: '0 5vw', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
             <rect x="8" y="6" width="26" height="34" rx="4" fill="#1E3A8A" stroke="#1E40AF" strokeWidth="1.5"/>
@@ -64,53 +64,53 @@ export default function HomePage() {
             <circle cx="35" cy="33" r="10" fill="#1E40AF"/>
             <path d="M35 38V28M31 32l4-4 4 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
           </svg>
-          <span style={{ color: '#fff', fontWeight: 500, fontSize: 17 }}>Apply<span style={{ color: '#1E40AF' }}>AI</span></span>
+          <span style={{ color: '#0F172A', fontWeight: 500, fontSize: 17 }}>Apply<span style={{ color: '#1E40AF' }}>AI</span></span>
         </div>
         <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
-          <a href="#features" style={{ color: '#94A3B8', fontSize: 13, textDecoration: 'none' }}>Features</a>
-          <a href="#pricing" style={{ color: '#94A3B8', fontSize: 13, textDecoration: 'none' }}>Pricing</a>
-          <Link href="/auth" style={{ background: '#1E40AF', color: '#fff', padding: '7px 18px', borderRadius: 8, fontSize: 13, fontWeight: 500, textDecoration: 'none' }}>Sign in</Link>
+          <a href="#features" style={{ color: '#6B7280', fontSize: 13, textDecoration: 'none' }}>Features</a>
+          <a href="#pricing" style={{ color: '#6B7280', fontSize: 13, textDecoration: 'none' }}>Pricing</a>
+          <Link href="/auth" style={{ background: '#1E40AF', color: '#FFFFFF', padding: '7px 18px', borderRadius: 8, fontSize: 13, fontWeight: 500, textDecoration: 'none' }}>Sign in</Link>
         </div>
       </nav>
 
       {/* HERO */}
-      <section style={{ padding: '80px 5vw 60px', textAlign: 'center', background: '#0F172A' }}>
+      <section style={{ padding: '80px 5vw 60px', textAlign: 'center', background: '#FFFFFF' }}>
         <div style={{ display: 'inline-block', background: '#1E3A8A', color: '#1E3A8A', fontSize: 12, fontWeight: 500, padding: '4px 14px', borderRadius: 20, marginBottom: 20, letterSpacing: '0.06em' }}>
           AI-POWERED JOB AGENT
         </div>
         <h1 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: 500, lineHeight: 1.1, margin: '0 0 20px', letterSpacing: -1.5 }}>
           Land your dream job with AI on your side
         </h1>
-        <p style={{ fontSize: 17, color: '#94A3B8', margin: '0 auto 36px', lineHeight: 1.7, maxWidth: 540 }}>
+        <p style={{ fontSize: 17, color: '#6B7280', margin: '0 auto 36px', lineHeight: 1.7, maxWidth: 540 }}>
           ApplyAI tailors your CV and cover letter to every job in seconds: and prepares you for the interview.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link href="/auth" style={{ background: '#1E40AF', color: '#fff', padding: '14px 32px', borderRadius: 10, fontSize: 15, fontWeight: 500, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+          <Link href="/auth" style={{ background: '#1E40AF', color: '#FFFFFF', padding: '14px 32px', borderRadius: 10, fontSize: 15, fontWeight: 500, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
             Get started free <ArrowRight size={16}/>
           </Link>
         </div>
         <div style={{ display: 'flex', gap: 40, justifyContent: 'center', marginTop: 48, flexWrap: 'wrap' }}>
           {[['94%','ATS pass rate'],['3.2×','more interviews'],['Free','to start']].map(([n,l]) => (
             <div key={l} style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 28, fontWeight: 500, color: '#F8FAFC' }}>{n}</div>
-              <div style={{ fontSize: 13, color: '#94A3B8', marginTop: 2 }}>{l}</div>
+              <div style={{ fontSize: 28, fontWeight: 500, color: '#0F172A' }}>{n}</div>
+              <div style={{ fontSize: 13, color: '#6B7280', marginTop: 2 }}>{l}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* FEATURES */}
-      <section style={{ padding: '60px 5vw', background: '#0D1526' }} id="features">
+      <section style={{ padding: '60px 5vw', background: '#EFF6FF' }} id="features">
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48, letterSpacing: -0.5, color: '#F8FAFC' }}>Five steps. Zero manual effort.</h2>
+          <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48, letterSpacing: -0.5, color: '#0F172A' }}>Five steps. Zero manual effort.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 20 }}>
             {FEATURES.map(f => (
-              <div key={f.title} style={{ padding: 20, background: '#131C2E', borderRadius: 12, border: '1px solid #BFDBFE' }}>
+              <div key={f.title} style={{ padding: 20, background: '#FFFFFF', borderRadius: 12, border: '1px solid #BFDBFE' }}>
                 <div style={{ width: 36, height: 36, background: '#1E3A8A', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
                   <f.icon size={18} color="#1E40AF"/>
                 </div>
                 <h3 style={{ fontSize: 14, fontWeight: 500, margin: '0 0 6px' }}>{f.title}</h3>
-                <p style={{ fontSize: 13, color: '#94A3B8', margin: 0, lineHeight: 1.6 }}>{f.desc}</p>
+                <p style={{ fontSize: 13, color: '#6B7280', margin: 0, lineHeight: 1.6 }}>{f.desc}</p>
               </div>
             ))}
           </div>
@@ -118,21 +118,21 @@ export default function HomePage() {
       </section>
 
       {/* PRICING */}
-      <section style={{ padding: '80px 5vw', background: '#0D1526' }} id="pricing">
+      <section style={{ padding: '80px 5vw', background: '#EFF6FF' }} id="pricing">
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48, color: '#F8FAFC' }}>Start free. Upgrade when ready.</h2>
+          <h2 style={{ textAlign: 'center', fontSize: 32, fontWeight: 500, marginBottom: 48, color: '#0F172A' }}>Start free. Upgrade when ready.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 20 }}>
             {PLANS.map(plan => (
-              <div key={plan.name} style={{ background: '#0F172A', borderRadius: 14, border: plan.highlight ? '2px solid #1E40AF' : '1px solid #1E3A8A', padding: '28px', position: 'relative' }}>
-                {plan.highlight && <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: '#1E40AF', color: '#fff', fontSize: 11, fontWeight: 500, padding: '3px 14px', borderRadius: 10, whiteSpace: 'nowrap' }}>Most popular</div>}
-                {plan.note && <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: '#534AB7', color: '#fff', fontSize: 11, fontWeight: 500, padding: '3px 14px', borderRadius: 10, whiteSpace: 'nowrap' }}>{plan.note}</div>}
-                <div style={{ fontSize: 15, fontWeight: 500, marginBottom: 4, color: '#F8FAFC' }}>{plan.name}</div>
-                <div style={{ fontSize: 36, fontWeight: 600, letterSpacing: -1, color: '#F8FAFC' }}>{plan.price}</div>
-                <div style={{ fontSize: 13, color: '#94A3B8', marginBottom: 20 }}>{plan.period}</div>
+              <div key={plan.name} style={{ background: '#FFFFFF', borderRadius: 14, border: plan.highlight ? '2px solid #1E40AF' : '1px solid #1E3A8A', padding: '28px', position: 'relative' }}>
+                {plan.highlight && <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: '#1E40AF', color: '#0F172A', fontSize: 11, fontWeight: 500, padding: '3px 14px', borderRadius: 10, whiteSpace: 'nowrap' }}>Most popular</div>}
+                {plan.note && <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: '#534AB7', color: '#0F172A', fontSize: 11, fontWeight: 500, padding: '3px 14px', borderRadius: 10, whiteSpace: 'nowrap' }}>{plan.note}</div>}
+                <div style={{ fontSize: 15, fontWeight: 500, marginBottom: 4, color: '#0F172A' }}>{plan.name}</div>
+                <div style={{ fontSize: 36, fontWeight: 600, letterSpacing: -1, color: '#0F172A' }}>{plan.price}</div>
+                <div style={{ fontSize: 13, color: '#6B7280', marginBottom: 20 }}>{plan.period}</div>
                 {plan.features.map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
                     <CheckCircle size={14} color="#1E40AF" style={{ flexShrink: 0 }}/>
-                    <span style={{ fontSize: 13, color: '#F8FAFC' }}>{f}</span>
+                    <span style={{ fontSize: 13, color: '#0F172A' }}>{f}</span>
                   </div>
                 ))}
                 <Link href={plan.href} style={{ display: 'block', marginTop: 20, padding: '12px', textAlign: 'center', background: plan.highlight ? '#1E40AF' : 'transparent', color: plan.highlight ? '#fff' : '#0F172A', border: plan.highlight ? 'none' : '1px solid #BFDBFE', borderRadius: 8, fontSize: 14, fontWeight: 500, textDecoration: 'none' }}>
@@ -145,7 +145,7 @@ export default function HomePage() {
       </section>
 
       {/* COMMENTS */}
-      <section style={{ padding: '60px 5vw', background: '#0D1526', textAlign: 'center' }}>
+      <section style={{ padding: '60px 5vw', background: '#EFF6FF', textAlign: 'center' }}>
         <button
           onClick={toggleComments}
           style={{
@@ -156,7 +156,7 @@ export default function HomePage() {
             borderRadius: 8,
             border: '1px solid #BFDBFE',
             background: 'transparent',
-            color: '#F8FAFC',
+            color: '#0F172A',
             fontSize: 15,
             fontWeight: 500,
             cursor: 'pointer',
@@ -169,10 +169,10 @@ export default function HomePage() {
 
         {showComments && (
           <div style={{ maxWidth: 700, margin: '32px auto 0', textAlign: 'left' }}>
-            {loadingReviews && <div style={{ color: '#94A3B8' }}>Loading comments...</div>}
+            {loadingReviews && <div style={{ color: '#6B7280' }}>Loading comments...</div>}
 
             {!loadingReviews && reviews.length === 0 && (
-              <div style={{ color: '#94A3B8' }}>No comments yet. Be the first to leave one!</div>
+              <div style={{ color: '#6B7280' }}>No comments yet. Be the first to leave one!</div>
             )}
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -180,7 +180,7 @@ export default function HomePage() {
                 <div
                   key={i}
                   style={{
-                    background: '#131C2E',
+                    background: '#FFFFFF',
                     border: '1px solid #BFDBFE',
                     borderRadius: 12,
                     padding: 16,
@@ -189,7 +189,7 @@ export default function HomePage() {
                   <div style={{ fontSize: 16, color: '#1E40AF', marginBottom: 6 }}>
                     {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
                   </div>
-                  <div style={{ fontSize: 14, color: '#F8FAFC', lineHeight: 1.6 }}>
+                  <div style={{ fontSize: 14, color: '#0F172A', lineHeight: 1.6 }}>
                     {review.comment}
                   </div>
                 </div>
@@ -200,11 +200,11 @@ export default function HomePage() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: '#0F172A', padding: '20px 5vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
-        <span style={{ color: '#F8FAFC', fontSize: 13 }}>© 2025 ApplyAI · jobapp.best</span>
+      <footer style={{ background: '#FFFFFF', padding: '20px 5vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+        <span style={{ color: '#0F172A', fontSize: 13 }}>© 2025 ApplyAI · jobapp.best</span>
         <div style={{ display: 'flex', gap: 20 }}>
-          <a href="/privacy" style={{ color: '#94A3B8', fontSize: 13, textDecoration: 'none' }}>Privacy</a>
-          <a href="/terms" style={{ color: '#94A3B8', fontSize: 13, textDecoration: 'none' }}>Terms</a>
+          <a href="/privacy" style={{ color: '#6B7280', fontSize: 13, textDecoration: 'none' }}>Privacy</a>
+          <a href="/terms" style={{ color: '#6B7280', fontSize: 13, textDecoration: 'none' }}>Terms</a>
         </div>
       </footer>
     </div>
