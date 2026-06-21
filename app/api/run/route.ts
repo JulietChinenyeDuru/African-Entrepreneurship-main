@@ -30,14 +30,14 @@ export async function POST(req: NextRequest) {
   }
 
   // Check plan limit
-  const limit = PLAN_LIMITS[profile.plan] || 5
+  const limit = PLAN_LIMITS[profile.plan] || 2
   if (profile.applications_used_month >= limit) {
     return NextResponse.json({
       error: 'monthly_limit_reached',
       plan: profile.plan,
       limit,
       used: profile.applications_used_month,
-      message: `You have used all ${limit} applications this month. Upgrade to Pro for more.`,
+      message: `You have used all ${limit} free applications. Upgrade to Pro for more.`,
     }, { status: 403 })
   }
 
