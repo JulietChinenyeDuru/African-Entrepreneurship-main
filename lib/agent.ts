@@ -19,6 +19,7 @@ export interface AgentInput {
   location: string
   salary?: string
   level?: string
+  jobDesc?: string
 }
 
 export interface JobMatch {
