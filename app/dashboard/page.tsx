@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
   FileText, Search, Zap, Bell, Copy, CheckCircle,
   LogOut, Crown, Loader, ChevronDown, ChevronUp,
@@ -14,6 +14,8 @@ type Tab = 'run' | 'applications' | 'account' | 'reviews'
 
 export default function Dashboard() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const planParam = searchParams.get('plan') || 'pro'
   const supabase = createClient()
   const [user, setUser] = useState<any>(null)
   const [authLoading, setAuthLoading] = useState(true)
@@ -241,10 +243,11 @@ const freeRemaining = profile ? Math.max(0, 2 - (profile.applications_used_month
 
   const signOut = async () => { await supabase.auth.signOut(); router.push('/') }
 
-  const upgradeNow = async () => {
+  const upgradeNow = async (forcePlan?: string) => {
+    const chosenPlan = forcePlan || planParam
     let country = 'GB'
     try { const g = await (await fetch('https://ipapi.co/json/')).json(); country = g.country_code } catch {}
-    const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ country }) })
+    const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ country, plan: chosenPlan }) })
     const { url } = await res.json()
     window.location.href = url
   }
