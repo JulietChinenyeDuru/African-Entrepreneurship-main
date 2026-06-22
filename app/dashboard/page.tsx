@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import {
   FileText, Search, Zap, Bell, Copy, CheckCircle,
   LogOut, Crown, Loader, ChevronDown, ChevronUp,
@@ -14,8 +14,7 @@ type Tab = 'run' | 'applications' | 'account' | 'reviews'
 
 export default function Dashboard() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const planParam = searchParams.get('plan') || 'pro'
+  const planParam = typeof window !== 'undefined' ? (new URLSearchParams(window.location.search).get('plan') || 'pro') : 'pro'
   const supabase = createClient()
   const [user, setUser] = useState<any>(null)
   const [authLoading, setAuthLoading] = useState(true)
