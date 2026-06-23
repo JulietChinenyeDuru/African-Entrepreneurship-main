@@ -315,12 +315,12 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
               {/* Job Description */}
               <div style={{ marginBottom: 14 }}>
                 <label style={{ ...lbl }}>Job description</label>
-                <textarea value={jobDesc} onChange={e => setJobDesc(e.target.value)} rows={6} placeholder="Paste the job description here..." style={{ ...inp, resize: "vertical" }}/>
+                <textarea value={jobDesc} onChange={e => setJobDesc(e.target.value)} rows={6} placeholder="Paste the job description here — copy directly from LinkedIn, Indeed, Reed, or any job site..." style={{ ...inp, resize: "vertical" }}/>
               </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
                   <div><label style={lbl}>Target role</label><input value={role} onChange={e => setRole(e.target.value)} placeholder="e.g. DevOps Engineer" style={inp}/></div>
-                  <div><label style={lbl}>Location</label><input value={location} onChange={e => setLocation(e.target.value)} placeholder="e.g. Scotland, UK" style={inp}/></div>
+                  <div><label style={lbl}>Location</label><input value={location} onChange={e => setLocation(e.target.value)} placeholder="e.g. Scotland, UK or Remote" style={inp}/></div>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 20 }}>
                   <div><label style={lbl}>Salary range (optional)</label><input value={salary} onChange={e => setSalary(e.target.value)} placeholder="e.g. £45,000–£65,000" style={inp}/></div>
