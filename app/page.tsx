@@ -14,7 +14,7 @@ const FEATURES = [
 const PLANS = [
   {
     name: 'Free', price: '£0', period: 'forever',
-    features: ['2 applications to get started', 'CV tailoring per role', 'ATS keyword analysis', 'Application tracker'],
+    features: ['5 applications to get started', 'CV tailoring per role', 'ATS keyword analysis', 'Application tracker'],
     cta: 'Get started free', href: '/auth', highlight: false,
   },
   {

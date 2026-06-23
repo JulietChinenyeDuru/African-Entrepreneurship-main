@@ -74,7 +74,7 @@ export default function Dashboard() {
   })
   return () => subscription.unsubscribe()
 }, [])
-const freeRemaining = profile ? Math.max(0, 2 - (profile.applications_used_month || 0)) : 2
+const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month || 0)) : 5
   const handleCvUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -278,7 +278,7 @@ const freeRemaining = profile ? Math.max(0, 2 - (profile.applications_used_month
                 <span style={{ fontSize: 16, color: '#374151' }}>5 per month</span>
               </div>
               <div style={{ height: 4, background: '#BFDBFE', borderRadius: 2, overflow: 'hidden' }}>
-                <div style={{ height: '100%', background: freeRemaining > 2 ? '#1E40AF' : '#BA7517', borderRadius: 2, width: `${((2 - freeRemaining) / 2) * 100}%` }}/>
+                <div style={{ height: '100%', background: freeRemaining > 2 ? '#1E40AF' : '#BA7517', borderRadius: 2, width: `${((5 - freeRemaining) / 5) * 100}%` }}/>
               </div>
             </div>
             <button onClick={upgradeNow} style={{ fontSize: 16, fontWeight: 500, color: '#1E40AF', background: '#DBEAFE', border: 'none', padding: '5px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: 'inherit' }}>Go Pro</button>

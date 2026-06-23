@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Check plan limit
-  const limit = PLAN_LIMITS[profile.plan] || 2
+  const limit = PLAN_LIMITS[profile.plan] || 5
   if (profile.applications_used_month >= limit) {
     return NextResponse.json({
       error: 'monthly_limit_reached',
