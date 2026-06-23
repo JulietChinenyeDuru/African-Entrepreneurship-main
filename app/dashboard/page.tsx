@@ -26,7 +26,7 @@ export default function Dashboard() {
   // Form state
   const [cv, setCv] = useState('')
   const [role, setRole] = useState('')
-  const [location, setLocation] = useState('Scotland, UK')
+  const [location, setLocation] = useState('')
   const [salary, setSalary] = useState('')
   const [level, setLevel] = useState('')
   const [uploadStatus, setUploadStatus] = useState<string>('')
