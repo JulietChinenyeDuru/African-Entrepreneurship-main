@@ -36,7 +36,9 @@ export default function AuthPage() {
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) throw error
-        router.push('/dashboard'); router.refresh()
+        const planQ = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('plan') : null
+          router.push(planQ === 'africa' ? '/dashboard?plan=global' : '/dashboard')
+          router.refresh()
       }
     } catch (err: any) {
       setError(err.message)
@@ -48,7 +50,7 @@ export default function AuthPage() {
   const handleGoogle = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `https://www.jobapp.best/dashboard` },
+      options: { redirectTo: `https://www.jobapp.best/dashboard${typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('plan') === 'africa' ? '?plan=global' : ''}` },
     })
   }
 
