@@ -41,12 +41,10 @@ export default function ChatBot() {
 
   return (
     <>
-      <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}><button onClick={() => setOpen(!open)} style={{ width: 56, height: 56, borderRadius: '50%', background: '#1E40AF', border: 'none', cursor: 'pointer', boxShadow: '0 4px 20px rgba(30,64,175,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
-        {open ? '✕' : '💬'}
+      <button onClick={() => { setOpen(!open); setShowTeaser(false) }} style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999, height: 52, borderRadius: 30, background: '#1E40AF', border: 'none', cursor: 'pointer', boxShadow: '0 4px 20px rgba(30,64,175,0.4)', display: 'flex', alignItems: 'center', gap: 8, padding: '0 20px', fontFamily: '"DM Sans", sans-serif' }}>
+        <span style={{ fontSize: 22 }}>{open ? '✕' : '🤖'}</span>
+        <span style={{ color: '#fff', fontSize: 13, fontWeight: 700 }}>{open ? 'Close' : 'Click to chat with us'}</span>
       </button>
-      {!open && <span style={{ background: '#1E40AF', color: '#fff', fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 8, whiteSpace: 'nowrap', boxShadow: '0 2px 8px rgba(30,64,175,0.4)' }}>💬 Click to chat with us</span>}
-      </div>
-      {open && (
         <div style={{ position: 'fixed', bottom: 90, right: 24, zIndex: 9998, width: 340, height: 480, borderRadius: 16, background: '#fff', boxShadow: '0 8px 40px rgba(0,0,0,0.18)', display: 'flex', flexDirection: 'column', overflow: 'hidden', border: '1px solid #BFDBFE', fontFamily: '"DM Sans", sans-serif' }}>
           <div style={{ background: '#1E40AF', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>🤖</div>
