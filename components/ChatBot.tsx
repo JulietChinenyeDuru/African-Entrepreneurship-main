@@ -41,7 +41,7 @@ export default function ChatBot() {
 
   return (
     <>
-      <button onClick={() => { setOpen(!open); setShowTeaser(false) }} style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999, height: 52, borderRadius: 30, background: '#1E40AF', border: 'none', cursor: 'pointer', boxShadow: '0 4px 20px rgba(30,64,175,0.4)', display: 'flex', alignItems: 'center', gap: 8, padding: '0 20px', fontFamily: '"DM Sans", sans-serif' }}>
+      <button onClick={() => { setOpen(!open) }} style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999, height: 52, borderRadius: 30, background: '#1E40AF', border: 'none', cursor: 'pointer', boxShadow: '0 4px 20px rgba(30,64,175,0.4)', display: 'flex', alignItems: 'center', gap: 8, padding: '0 20px', fontFamily: '"DM Sans", sans-serif' }}>
         <span style={{ fontSize: 22 }}>{open ? '✕' : '🤖'}</span>
         <span style={{ color: '#fff', fontSize: 13, fontWeight: 700 }}>{open ? 'Close' : 'Click to chat with us'}</span>
       </button>
