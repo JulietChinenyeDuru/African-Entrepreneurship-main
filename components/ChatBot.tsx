@@ -44,7 +44,7 @@ export default function ChatBot() {
       <button
         onClick={() => setOpen(!open)}
         style={{
-          position: 'fixed', bottom: 24, right: 24, zIndex: 9999,
+          position: 'fixed', bottom: 80, right: 24, zIndex: 9999,
           height: 52, borderRadius: 30, background: '#1E40AF',
           border: 'none', cursor: 'pointer',
           boxShadow: '0 4px 20px rgba(30,64,175,0.4)',
@@ -60,7 +60,7 @@ export default function ChatBot() {
 
       {open && (
         <div style={{
-          position: 'fixed', bottom: 86, right: 24, zIndex: 9998,
+          position: 'fixed', bottom: 144, right: 24, zIndex: 9998,
           width: 340, height: 480, borderRadius: 16, background: '#fff',
           boxShadow: '0 8px 40px rgba(0,0,0,0.18)', display: 'flex',
           flexDirection: 'column', overflow: 'hidden',
