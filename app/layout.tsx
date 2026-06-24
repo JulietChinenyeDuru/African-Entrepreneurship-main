@@ -34,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <footer style={{ textAlign: "center", padding: "16px", fontSize: 12, color: "#999" }}>
             Built by Juliet Chinenye Duru
           </footer>
+        <ChatBot />
       </body>
     </html>
   )
