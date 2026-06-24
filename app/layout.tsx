@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import ChatBot from '@/components/ChatBot'
 
 export const metadata: Metadata = {
   title: 'ApplyAI — Your career, on autopilot',
