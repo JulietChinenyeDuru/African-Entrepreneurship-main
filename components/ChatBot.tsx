@@ -41,9 +41,11 @@ export default function ChatBot() {
 
   return (
     <>
-      <button onClick={() => setOpen(!open)} style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999, width: 56, height: 56, borderRadius: '50%', background: '#1E40AF', border: 'none', cursor: 'pointer', boxShadow: '0 4px 20px rgba(30,64,175,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
+      <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}><button onClick={() => setOpen(!open)} style={{ width: 56, height: 56, borderRadius: '50%', background: '#1E40AF', border: 'none', cursor: 'pointer', boxShadow: '0 4px 20px rgba(30,64,175,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
         {open ? '✕' : '💬'}
       </button>
+      {!open && <span style={{ background: '#1E40AF', color: '#fff', fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 8, whiteSpace: 'nowrap', boxShadow: '0 2px 8px rgba(30,64,175,0.4)' }}>💬 Click to chat with us</span>}
+      </div>
       {open && (
         <div style={{ position: 'fixed', bottom: 90, right: 24, zIndex: 9998, width: 340, height: 480, borderRadius: 16, background: '#fff', boxShadow: '0 8px 40px rgba(0,0,0,0.18)', display: 'flex', flexDirection: 'column', overflow: 'hidden', border: '1px solid #BFDBFE', fontFamily: '"DM Sans", sans-serif' }}>
           <div style={{ background: '#1E40AF', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 10 }}>
