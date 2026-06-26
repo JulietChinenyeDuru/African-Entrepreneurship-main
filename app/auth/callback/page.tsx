@@ -10,26 +10,29 @@ export default function AuthCallback() {
     const supabase = createClient()
     
     const handleCallback = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession()
+      // Handle hash fragment from implicit flow
+      const hashParams = new URLSearchParams(window.location.hash.substring(1))
+      const accessToken = hashParams.get('access_token')
       
+      if (accessToken) {
+        const { error } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: hashParams.get('refresh_token') || '',
+        })
+        if (!error) {
+          router.push('/dashboard')
+          return
+        }
+      }
+
+      // Try getting existing session
+      const { data: { session } } = await supabase.auth.getSession()
       if (session) {
         router.push('/dashboard')
         return
       }
 
-      // Wait for auth state change
-      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-        if (session) {
-          subscription.unsubscribe()
-          router.push('/dashboard')
-        }
-      })
-
-      // Timeout fallback
-      setTimeout(() => {
-        subscription.unsubscribe()
-        router.push('/auth')
-      }, 5000)
+      router.push('/auth')
     }
 
     handleCallback()
