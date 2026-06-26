@@ -8,13 +8,31 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const supabase = createClient()
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session) {
+    
+    const handleCallback = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession()
+      
+      if (session) {
         router.push('/dashboard')
-      } else {
-        router.push('/auth')
+        return
       }
-    })
+
+      // Wait for auth state change
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        if (session) {
+          subscription.unsubscribe()
+          router.push('/dashboard')
+        }
+      })
+
+      // Timeout fallback
+      setTimeout(() => {
+        subscription.unsubscribe()
+        router.push('/auth')
+      }, 5000)
+    }
+
+    handleCallback()
   }, [router])
 
   return (
