@@ -50,7 +50,7 @@ export default function AuthPage() {
   const handleGoogle = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: 'https://www.jobapp.best/dashboard' },
+      options: { redirectTo: 'https://www.jobapp.best/auth/callback' },
     })
   }
 
