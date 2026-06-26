@@ -59,7 +59,7 @@ export default function Dashboard() {
       setTimeout(() => {
         setAuthLoading(false)
         router.push("/auth")
-      }, 2000)
+      }, 8000)
       return
     }
     setAuthLoading(false)
