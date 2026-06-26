@@ -6,12 +6,8 @@ export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
   const error = requestUrl.searchParams.get('error')
-  const errorDescription = requestUrl.searchParams.get('error_description')
-
-  console.log('Auth callback hit:', { code: !!code, error, errorDescription })
 
   if (error) {
-    console.error('OAuth error:', error, errorDescription)
     return NextResponse.redirect(`https://www.jobapp.best/auth?error=${error}`)
   }
 
@@ -35,14 +31,7 @@ export async function GET(request: NextRequest) {
       }
     )
 
-    const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
-    console.log('Exchange result:', { user: data?.user?.email, error: exchangeError })
-
-    if (exchangeError) {
-      console.error('Exchange error:', exchangeError)
-      return NextResponse.redirect('https://www.jobapp.best/auth?error=exchange_failed')
-    }
-
+    await supabase.auth.exchangeCodeForSession(code)
     return response
   }
 
