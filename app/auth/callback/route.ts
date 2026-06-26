@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
           getAll() {
             return request.cookies.getAll()
           },
-          setAll(cookiesToSet: { name: string; value: string; options?: object }[]) {
+          setAll(cookiesToSet) {
             cookiesToSet.forEach(({ name, value, options }) =>
               response.cookies.set(name, value, options as any)
             )
@@ -30,5 +30,5 @@ export async function GET(request: NextRequest) {
     return response
   }
 
-  return NextResponse.redirect('https://www.jobapp.best/dashboard')
+  return NextResponse.redirect('https://www.jobapp.best/auth')
 }
