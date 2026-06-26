@@ -12,21 +12,33 @@ export default function AuthCallback() {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
 
+    let redirected = false
+
+    const redirect = (path: string) => {
+      if (!redirected) {
+        redirected = true
+        window.location.replace(path)
+      }
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        router.push('/dashboard')
-      } else {
-        supabase.auth.onAuthStateChange((event, session) => {
-          if (session) router.push('/dashboard')
-        })
-        setTimeout(() => router.push('/auth'), 10000)
+        redirect('/dashboard')
+        return
       }
+
+      supabase.auth.onAuthStateChange((event, session) => {
+        if (session) redirect('/dashboard')
+      })
+
+      setTimeout(() => redirect('/auth'), 15000)
     })
   }, [router])
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', fontFamily: 'DM Sans, sans-serif' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', fontFamily: 'DM Sans, sans-serif' }}>
       <p>Signing you in, please wait...</p>
+      <p style={{ fontSize: 12, color: '#999', marginTop: 8 }}>This may take a few seconds...</p>
     </div>
   )
 }
