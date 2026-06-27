@@ -48,6 +48,7 @@ export default function AuthPage() {
   }
 
   const handleGoogle = async () => {
+    Object.keys(localStorage).forEach(k => { if (k.includes('supabase')) localStorage.removeItem(k) })
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: 'https://jobapp.best/auth/callback' },
