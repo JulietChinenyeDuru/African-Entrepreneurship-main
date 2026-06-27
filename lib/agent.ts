@@ -1,6 +1,6 @@
 // lib/agent.ts
 // ============================================================
-// ApplyAI complete agent pipeline
+// JobApp AI complete agent pipeline
 // Profile → Jobs → Tailor CV → Find recruiter → Submit email
 // Uses cheap Haiku for 90% of tasks — see lib/models.ts
 // ============================================================
@@ -100,7 +100,7 @@ export async function analyseProfile(input: AgentInput) {
   const response = await claude.messages.create({
     model: TASK_MODELS.profileAnalysis,     // Sonnet
     max_tokens: MAX_TOKENS.profileAnalysis,
-    system: `You are ApplyAI's profile analysis agent. Never use markdown, dashes, or asterisks in your response.
+    system: `You are JobApp AI's profile analysis agent. Never use markdown, dashes, or asterisks in your response.
 Return ONLY valid JSON — no markdown, no explanation.
 {
   "career_level": "Junior|Mid|Senior|Principal",
@@ -147,7 +147,7 @@ export async function findJobs(profile: any, input: AgentInput): Promise<JobMatc
   const response = await claude.messages.create({
     model: TASK_MODELS.jobMatching,         // Haiku
     max_tokens: MAX_TOKENS.jobMatching,
-    system: `You are ApplyAI's job matching agent. Never use markdown, dashes, or asterisks.
+    system: `You are JobApp AI's job matching agent. Never use markdown, dashes, or asterisks.
 Score how well each job matches the candidate profile.
 Return ONLY valid JSON array — no markdown.
 [{ "id": "<job_id>", "match_score": <int 0-100>, "match_reason": "one sentence" }]`,
@@ -186,7 +186,7 @@ async function generateFallbackJobs(profile: any, input: AgentInput): Promise<Jo
   const response = await claude.messages.create({
     model: TASK_MODELS.jobMatching,
     max_tokens: MAX_TOKENS.jobMatching,
-    system: `You are ApplyAI's job discovery agent. Never use markdown, dashes, or asterisks.
+    system: `You are JobApp AI's job discovery agent. Never use markdown, dashes, or asterisks.
 Generate 5 realistic UK job listings matching this candidate.
 Return ONLY valid JSON array — no markdown.
 [{

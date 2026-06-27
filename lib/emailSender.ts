@@ -72,7 +72,7 @@ export async function generateCvPdf(cvText: string, userName: string): Promise<B
     y,
     size: 18,
     font: boldFont,
-    color: rgb(0.11, 0.62, 0.46),  // ApplyAI green
+    color: rgb(0.11, 0.62, 0.46),  // JobApp AI green
   })
   y -= 30
 
@@ -117,7 +117,7 @@ function formatEmailHtml(coverLetter: string, userName: string, jobTitle: string
   <br/>
   <p style="font-size: 12px; color: #888; border-top: 1px solid #eee;
             padding-top: 14px; margin-top: 20px;">
-    This application was prepared with ApplyAI — jobapp.best
+    This application was prepared with JobApp AI — jobapp.best
   </p>
 </body>
 </html>`
@@ -225,7 +225,7 @@ export async function sendUserNotification(params: {
     <p style="margin:0; color:#085041; font-weight:bold; font-size:15px;">Application submitted</p>
   </div>
   <p>Hi ${userName.split(' ')[0]},</p>
-  <p>ApplyAI just submitted your application for:</p>
+  <p>JobApp AI just submitted your application for:</p>
   <div style="background:#F8F7F4; border-radius:8px; padding:14px 16px; margin:14px 0;">
     <p style="margin:0 0 4px; font-weight:bold;">${jobTitle}</p>
     <p style="margin:0; color:#5F5E5A;">${company}</p>
@@ -242,7 +242,7 @@ export async function sendUserNotification(params: {
 </html>`
 
     const result = await transporter.sendMail({
-      from: `ApplyAI <${userEmail}>`,
+      from: `JobApp AI <${userEmail}>`,
       to: userEmail,
       subject: `Applied: ${jobTitle} at ${company}`,
       html,

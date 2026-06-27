@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export const metadata = { title: 'Privacy Policy — ApplyAI' }
+export const metadata = { title: 'Privacy Policy — JobApp AI' }
 
 export default function PrivacyPage() {
   const s: Record<string, any> = {
@@ -26,7 +26,7 @@ export default function PrivacyPage() {
         <p style={s.updated}>Last updated: June 2026</p>
 
         <p style={s.p}>
-          ApplyAI ("we", "us", "our") provides an AI-powered job application
+          JobApp AI ("we", "us", "our") provides an AI-powered job application
           assistant at jobapp.best. This policy explains what information we
           collect, how we use it, and how we protect it.
         </p>
@@ -46,7 +46,7 @@ export default function PrivacyPage() {
           <li>To send job applications on your behalf, from your own email address, only when you explicitly trigger it</li>
           <li>To track your applications and notify you of submissions</li>
           <li>To manage your subscription and billing via Stripe</li>
-          <li>To improve ApplyAI's matching and tailoring quality</li>
+          <li>To improve JobApp AI's matching and tailoring quality</li>
         </ul>
 
         <h2 style={s.h2}>3. Third-party processors</h2>
@@ -88,7 +88,7 @@ export default function PrivacyPage() {
 
         <h2 style={s.h2}>7. Children</h2>
         <p style={s.p}>
-          ApplyAI is intended for users aged 16 and over. We do not knowingly
+          JobApp AI is intended for users aged 16 and over. We do not knowingly
           collect data from anyone under 16.
         </p>
 

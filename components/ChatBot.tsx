@@ -9,7 +9,7 @@ interface Message {
 export default function ChatBot() {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hi! 👋 I'm the ApplyAI assistant. I can help you with CV tips, explain how ApplyAI works, or help you choose the right plan. What can I help you with?" }
+    { role: 'assistant', content: "Hi! 👋 I'm the JobApp AI assistant. I can help you with CV tips, explain how JobApp AI works, or help you choose the right plan. What can I help you with?" }
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -69,7 +69,7 @@ export default function ChatBot() {
           <div style={{ background: '#1E40AF', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{ width: 38, height: 38, borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🤖</div>
             <div style={{ flex: 1 }}>
-              <div style={{ color: '#fff', fontWeight: 700, fontSize: 14 }}>ApplyAI Assistant</div>
+              <div style={{ color: '#fff', fontWeight: 700, fontSize: 14 }}>JobApp AI Assistant</div>
               <div style={{ color: '#BFDBFE', fontSize: 12 }}>● Online — replies instantly</div>
             </div>
             <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', fontSize: 20 }}>✕</button>

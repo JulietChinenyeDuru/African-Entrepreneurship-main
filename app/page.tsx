@@ -82,7 +82,7 @@ export default function HomePage() {
           Land your dream job with AI on your side
         </h1>
         <p style={{ fontSize: 17, color: '#6B7280', margin: '0 auto 36px', lineHeight: 1.7, maxWidth: 540 }}>
-          ApplyAI tailors your CV and cover letter to every job in seconds: and prepares you for the interview.
+          JobApp AI tailors your CV and cover letter to every job in seconds: and prepares you for the interview.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href="/auth" style={{ background: '#1E40AF', color: '#FFFFFF', padding: '14px 32px', borderRadius: 10, fontSize: 15, fontWeight: 500, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
@@ -201,7 +201,7 @@ export default function HomePage() {
 
       {/* FOOTER */}
       <footer style={{ background: '#FFFFFF', padding: '20px 5vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
-        <span style={{ color: '#0F172A', fontSize: 13 }}>© 2025 ApplyAI · jobapp.best</span>
+        <span style={{ color: '#0F172A', fontSize: 13 }}>© 2025 JobApp AI · jobapp.best</span>
         <div style={{ display: 'flex', gap: 20 }}>
           <a href="/privacy" style={{ color: '#6B7280', fontSize: 13, textDecoration: 'none' }}>Privacy</a>
           <a href="/terms" style={{ color: '#6B7280', fontSize: 13, textDecoration: 'none' }}>Terms</a>

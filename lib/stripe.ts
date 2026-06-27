@@ -8,7 +8,7 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export const PLANS = {
   free:   { name: 'Free',           price: 0,      limit: 5   },
   pro:    { name: 'Pro',            price: 12.99,  limit: 100 },
-  africa: { name: 'ApplyAI Global', price: 4.99,   limit: 30  },
+  africa: { name: 'JobApp AI Global', price: 4.99,   limit: 30  },
 }
 
 export async function createCheckoutSession(

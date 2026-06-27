@@ -335,7 +335,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                 )}
                 {error && error !== 'limit' && <div style={{ display: 'flex', gap: 8, background: '#fff5f5', border: '1px solid #F09595', borderRadius: 8, padding: '10px 12px', marginBottom: 16 }}><AlertCircle size={14} color="#A32D2D"/><span style={{ fontSize: 17, color: '#991B1B' }}>{error}</span></div>}
                 <button onClick={runAgent} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '12px 28px', borderRadius: 9, fontSize: 18, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'inherit' }}>
-                  <Zap size={14}/>Run ApplyAI agent
+                  <Zap size={14}/>Run JobApp AI agent
                 </button>
               </div>
             )}
@@ -622,7 +622,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                 <Mail size={16} color="#1E40AF"/>Auto-apply email setup
               </h2>
               <p style={{ fontSize: 17, color: '#0F172A', margin: '0 0 20px', lineHeight: 1.6 }}>
-                ApplyAI sends job applications from YOUR email address. Recruiters see a real human email — not a bulk tool. You receive a copy of every email sent.
+                JobApp AI sends job applications from YOUR email address. Recruiters see a real human email — not a bulk tool. You receive a copy of every email sent.
               </p>
 
               <div style={{ marginBottom: 14 }}>
@@ -659,7 +659,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                     <li>Go to <strong>myaccount.google.com</strong></li>
                     <li>Security → 2-Step Verification (must be enabled)</li>
                     <li>Scroll down → App passwords</li>
-                    <li>Select app: <strong>Mail</strong> → Device: <strong>Other</strong> → type "ApplyAI"</li>
+                    <li>Select app: <strong>Mail</strong> → Device: <strong>Other</strong> → type "JobApp AI"</li>
                     <li>Copy the 16-character password shown</li>
                   </ol>
                 )}
@@ -674,7 +674,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                 {emailProvider === 'yahoo' && (
                   <ol style={{ margin: 0, paddingLeft: 16, fontSize: 16, color: '#0F6E56', lineHeight: 1.8 }}>
                     <li>Go to <strong>login.yahoo.com</strong> → Account Security</li>
-                    <li>Generate app password → Other app → type "ApplyAI"</li>
+                    <li>Generate app password → Other app → type "JobApp AI"</li>
                     <li>Copy the password shown</li>
                   </ol>
                 )}
