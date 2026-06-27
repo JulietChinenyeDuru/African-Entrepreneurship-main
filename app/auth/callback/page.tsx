@@ -1,19 +1,23 @@
 'use client'
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { createBrowserClient } from '@supabase/ssr'
 
 export default function AuthCallback() {
-  const router = useRouter()
-
   useEffect(() => {
     const supabase = createBrowserClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
 
-    let redirected = false
+    // Check for errors in URL params
+    const params = new URLSearchParams(window.location.search)
+    const error = params.get('error')
+    if (error) {
+      window.location.replace('/auth?error=' + error)
+      return
+    }
 
+    let redirected = false
     const redirect = (path: string) => {
       if (!redirected) {
         redirected = true
@@ -33,7 +37,7 @@ export default function AuthCallback() {
 
       setTimeout(() => redirect('/auth'), 15000)
     })
-  }, [router])
+  }, [])
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', fontFamily: 'DM Sans, sans-serif' }}>
