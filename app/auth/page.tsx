@@ -47,6 +47,10 @@ export default function AuthPage() {
     }
   }
 
+  const handleGoogle = async () => {
+    Object.keys(localStorage).forEach(k => { if (k.includes('supabase')) localStorage.removeItem(k) })
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
       options: { redirectTo: 'https://jobapp.best/auth/callback' },
     })
   }
@@ -90,6 +94,16 @@ export default function AuthPage() {
         ) : (
           <>
             <h1 style={{ fontSize: 24, fontWeight: 600, margin: '0 0 6px' }}>{mode === 'signin' ? 'Welcome back' : 'Create account'}</h1>
+          {mode === 'signup' && <p style={{ fontSize: 13, color: '#e67e22', background: '#fef9f0', border: '1px solid #f5cba7', borderRadius: 8, padding: '8px 12px', margin: '0 0 12px' }}>📱 Mobile users: please sign up with email below. Google login works best on desktop.</p>}
+            <p style={{ fontSize: 14, color: '#475569', margin: '0 0 24px' }}>{mode === 'signin' ? 'Sign in to your ApplyAI account' : 'Start landing more interviews'}</p>
+            <button onClick={handleGoogle} style={{ width: '100%', padding: 11, border: '1px solid #BFDBFE', borderRadius: 8, background: '#EFF6FF', cursor: 'pointer', fontSize: 14, fontWeight: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 20, fontFamily: 'inherit' }}>
+              <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463 .891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+              Continue with Google (Desktop recommended)
+            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+              <div style={{ flex: 1, height: 1, background: '#BFDBFE' }}/><span style={{ fontSize: 12, color: '#6B7280' }}>or</span><div style={{ flex: 1, height: 1, background: '#BFDBFE' }}/>
+            </div>
+            <form onSubmit={handleSubmit}>
               {mode === 'signup' && (
                 <div style={{ marginBottom: 14 }}>
                   <label style={s.label}>Full name</label>
