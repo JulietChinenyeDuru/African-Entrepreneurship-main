@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
-import { Mail, Lock, User, AlertCircle, Loader, ArrowLeft } from 'lucide-react'
+import { Mail, Lock, User, AlertCircle, Loader, ArrowLeft, Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 
 export default function AuthPage() {
@@ -14,6 +14,7 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const supabase = createClient()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -111,7 +112,7 @@ export default function AuthPage() {
                 <label style={s.label}>Password</label>
                 <div style={{ position: 'relative' }}>
                   <Lock size={14} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#6B7280' }}/>
-                  <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="At least 8 characters" required minLength={8} style={s.input}/>
+                  <input type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} placeholder="At least 8 characters" required minLength={8} style={s.input}/><button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#6B7280", padding: 0 }}>{showPassword ? <EyeOff size={14}/> : <Eye size={14}/>}</button>
                 </div>
               </div>
               {mode === 'signin' && (
