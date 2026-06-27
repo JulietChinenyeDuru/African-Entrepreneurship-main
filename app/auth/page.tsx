@@ -89,7 +89,6 @@ export default function AuthPage() {
           <>
             <h1 style={{ fontSize: 24, fontWeight: 600, margin: '0 0 6px' }}>{mode === 'signin' ? 'Welcome back' : 'Create account'}</h1>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-              <div style={{ flex: 1, height: 1, background: '#BFDBFE' }}/><span style={{ fontSize: 12, color: '#6B7280' }}>or</span><div style={{ flex: 1, height: 1, background: '#BFDBFE' }}/>
             </div>
             <form onSubmit={handleSubmit}>
               {mode === 'signup' && (
