@@ -58,7 +58,7 @@ export default function AuthPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#EFF6FF', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
       <Link href="/" style={{ fontSize: 22, fontWeight: 600, color: '#1A1A1A', textDecoration: 'none', marginBottom: 24 }}>
-        Apply<span style={{ color: '#1E40AF' }}>AI</span>
+        JobApp <span style={{ color: '#1E40AF' }}>AI</span>
       </Link>
       <div style={{ background: '#EFF6FF', borderRadius: 16, padding: '36px 32px', width: '100%', maxWidth: 420, boxShadow: '0 2px 16px rgba(0,0,0,0.07)' }}>
 
