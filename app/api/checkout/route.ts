@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       .single()
 
     const isAfrican = requestedPlan === "global" || AFRICAN_COUNTRIES.includes(country?.toUpperCase())
-    const priceId = isAfrican
+    const priceId = (isAfrican
       ? process.env.STRIPE_AFRICA_PRICE_ID
       : process.env.STRIPE_PRO_PRICE_ID
 
