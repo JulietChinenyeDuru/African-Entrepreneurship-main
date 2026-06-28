@@ -261,7 +261,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
       <nav style={{ background: '#EFF6FF', height: 54, padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
         <span style={{ color: '#fff', fontWeight: 500, fontSize: 20 }}>JobApp <span style={{ color: '#1E40AF' }}>AI</span></span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          {profile?.plan === 'free' && <button onClick={upgradeNow} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '6px 14px', borderRadius: 7, fontSize: 16, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit' }}><Crown size={12}/>Upgrade Pro</button>}
+          {profile?.plan === 'free' && <button onClick={() => upgradeNow()} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '6px 14px', borderRadius: 7, fontSize: 16, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit' }}><Crown size={12}/>Upgrade Pro</button>}
           {profile?.plan !== 'free' && <span style={{ fontSize: 16, color: '#1E40AF', display: 'flex', alignItems: 'center', gap: 4 }}><Crown size={12}/>{profile?.plan === 'africa' ? 'Global' : 'Pro'}</span>}
           <button onClick={signOut} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#374151', display: 'flex', alignItems: 'center', gap: 4, fontSize: 17, fontFamily: 'inherit' }}><LogOut size={13}/>Sign out</button>
         </div>
@@ -281,7 +281,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                 <div style={{ height: '100%', background: freeRemaining > 2 ? '#1E40AF' : '#BA7517', borderRadius: 2, width: `${((5 - freeRemaining) / 5) * 100}%` }}/>
               </div>
             </div>
-            <button onClick={upgradeNow} style={{ fontSize: 16, fontWeight: 500, color: '#1E40AF', background: '#DBEAFE', border: 'none', padding: '5px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: 'inherit' }}>Go Pro</button>
+            <button onClick={() => upgradeNow()} style={{ fontSize: 16, fontWeight: 500, color: '#1E40AF', background: '#DBEAFE', border: 'none', padding: '5px 12px', borderRadius: 6, cursor: 'pointer', fontFamily: 'inherit' }}>Go Pro</button>
           </div>
         )}
 
@@ -330,7 +330,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                   <div style={{ background: '#FAEEDA', border: '1px solid #FAC775', borderRadius: 8, padding: '14px 16px', marginBottom: 16 }}>
                     <div style={{ fontWeight: 500, fontSize: 18, color: '#92400E', marginBottom: 4 }}>Monthly limit reached</div>
                     <p style={{ fontSize: 17, color: '#92400E', margin: '0 0 12px' }}>Upgrade to Pro for 100 applications/month.</p>
-                    <button onClick={upgradeNow} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '9px 18px', borderRadius: 7, fontSize: 17, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>Upgrade to Pro →</button>
+                    <button onClick={() => upgradeNow()} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '9px 18px', borderRadius: 7, fontSize: 17, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>Upgrade to Pro →</button>
                   </div>
                 )}
                 {error && error !== 'limit' && <div style={{ display: 'flex', gap: 8, background: '#fff5f5', border: '1px solid #F09595', borderRadius: 8, padding: '10px 12px', marginBottom: 16 }}><AlertCircle size={14} color="#A32D2D"/><span style={{ fontSize: 17, color: '#991B1B' }}>{error}</span></div>}
@@ -438,7 +438,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                                 <p style={{ fontSize: 17, color: '#0F172A', margin: '0 0 14px', lineHeight: 1.6 }}>
                                   Interview preparation — likely questions, key talking points, and questions to ask — is a Pro feature.
                                 </p>
-                                <button onClick={upgradeNow} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '9px 18px', borderRadius: 7, fontSize: 17, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                                <button onClick={() => upgradeNow()} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '9px 18px', borderRadius: 7, fontSize: 17, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                                   <Crown size={13}/>Upgrade to Pro
                                 </button>
                               </div>
@@ -610,7 +610,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                 </div>
               </div>
               {profile?.plan === 'free' && (
-                <button onClick={upgradeNow} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: 8, fontSize: 17, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit' }}>
+                <button onClick={() => upgradeNow()} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: 8, fontSize: 17, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit' }}>
                   <Crown size={13}/>Upgrade to Pro — £12.99/month
                 </button>
               )}
