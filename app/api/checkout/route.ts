@@ -18,8 +18,8 @@ export async function POST(req: NextRequest) {
     .eq('id', user.id)
     .single()
 
-  // Use Africa price for African users
-  const isAfrican = AFRICAN_COUNTRIES.includes(country?.toUpperCase())
+  // Use requested plan to determine price
+  const isAfrican = requestedPlan === 'global' || AFRICAN_COUNTRIES.includes(country?.toUpperCase())
   const priceId = isAfrican
     ? process.env.STRIPE_AFRICA_PRICE_ID!
     : process.env.STRIPE_PRO_PRICE_ID!
