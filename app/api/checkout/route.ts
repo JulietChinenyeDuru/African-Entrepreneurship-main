@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     const { data: profile } = await supabase
       .from("profiles")
       .select("stripe_customer_id")
-      .eq("id", user.id)
+      .eq("id", user!.id)
       .single()
 
     const isAfrican = requestedPlan === "global" || AFRICAN_COUNTRIES.includes(country?.toUpperCase())
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       : process.env.STRIPE_PRO_PRICE_ID
 
     const url = await createCheckoutSession(
-      user.id, user.email, priceId, profile?.stripe_customer_id
+      user!.id, user!.email!, priceId, profile?.stripe_customer_id
     )
 
     return NextResponse.json({ url, plan: isAfrican ? "global" : "pro" })
