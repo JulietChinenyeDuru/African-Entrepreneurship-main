@@ -248,7 +248,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
     try { const g = await (await fetch('https://ipapi.co/json/')).json(); country = g.country_code } catch {}
     const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ country, plan: chosenPlan }) })
     const data = await res.json(); console.log("checkout:", data); const url = data.url
-    window.location.href = url
+    if (url) window.location.href = url; else alert("Checkout failed: " + JSON.stringify(data))
   }
 
   const lbl: any = { fontSize: 16, fontWeight: 500, color: '#0F172A', display: 'block', marginBottom: 6 }

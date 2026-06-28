@@ -29,7 +29,7 @@ export async function createCheckoutSession(
     subscription_data: { metadata: { userId } },
     tax_id_collection: { enabled: true },
   })
-  return session.url!
+  return session.url ?? ""
 }
 
 export async function createPortalSession(customerId: string): Promise<string> {
