@@ -117,6 +117,7 @@ begin
   where id = user_uuid;
 
   if user_plan = 'pro' then return true; end if;
+  if user_plan = 'africa' and used < 30 then return true; end if;
   if used < 5 then return true; end if;
   return false;
 end;
