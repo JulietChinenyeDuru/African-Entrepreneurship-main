@@ -242,8 +242,8 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
 
   const signOut = async () => { await supabase.auth.signOut(); router.push('/') }
 
-  const upgradeNow = async () => {
-    const chosenPlan = planParam
+  const upgradeNow = async (overridePlan?: string) => {
+    const chosenPlan = overridePlan || planParam
     let country = 'GB'
     try { const g = await (await fetch('https://ipapi.co/json/')).json(); country = g.country_code } catch {}
     const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ country, plan: chosenPlan }) })
