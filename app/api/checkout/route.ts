@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       : process.env.STRIPE_PRO_PRICE_ID
 
     const url = await createCheckoutSession(
-      user!.id, user!.email!, priceId, profile?.stripe_customer_id
+      user!.id, user!.email!, priceId!, profile?.stripe_customer_id
     )
 
     return NextResponse.json({ url, plan: isAfrican ? "global" : "pro" })
