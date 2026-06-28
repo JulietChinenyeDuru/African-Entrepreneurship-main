@@ -259,7 +259,7 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
     <div style={{ minHeight: '100vh', background: '#EFF6FF', fontFamily: "'DM Sans', sans-serif" }}>
       {/* NAV */}
       <nav style={{ background: '#EFF6FF', height: 54, padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
-        <span style={{ color: '#fff', fontWeight: 500, fontSize: 20 }}>Apply<span style={{ color: '#1E40AF' }}>AI</span></span>
+        <span style={{ color: '#fff', fontWeight: 500, fontSize: 20 }}>JobApp <span style={{ color: '#1E40AF' }}>AI</span></span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           {profile?.plan === 'free' && <button onClick={upgradeNow} style={{ background: '#1E40AF', color: '#fff', border: 'none', padding: '6px 14px', borderRadius: 7, fontSize: 16, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit' }}><Crown size={12}/>Upgrade Pro</button>}
           {profile?.plan !== 'free' && <span style={{ fontSize: 16, color: '#1E40AF', display: 'flex', alignItems: 'center', gap: 4 }}><Crown size={12}/>{profile?.plan === 'africa' ? 'Global' : 'Pro'}</span>}

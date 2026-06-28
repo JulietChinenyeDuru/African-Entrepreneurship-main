@@ -64,7 +64,7 @@ export default function HomePage() {
             <circle cx="35" cy="33" r="10" fill="#1E40AF"/>
             <path d="M35 38V28M31 32l4-4 4 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
           </svg>
-          <span style={{ color: '#0F172A', fontWeight: 500, fontSize: 17 }}>Apply<span style={{ color: '#1E40AF' }}>AI</span></span>
+          <span style={{ color: '#0F172A', fontWeight: 500, fontSize: 17 }}>JobApp <span style={{ color: '#1E40AF' }}>AI</span></span>
         </div>
         <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
           <a href="#features" style={{ color: '#6B7280', fontSize: 13, textDecoration: 'none' }}>Features</a>
