@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     )
 
     return NextResponse.json({ url, plan: isAfrican ? "global" : "pro" })
-  } catch (err) {
+  } catch (err: any) {
     console.error("Checkout error:", err)
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
