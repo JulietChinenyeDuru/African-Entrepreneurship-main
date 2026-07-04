@@ -249,6 +249,21 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
     const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ country, plan: chosenPlan }) })
     const data = await res.json(); console.log("checkout:", data); const url = data.url
     if (url) window.location.href = url; else alert("Checkout failed: " + JSON.stringify(data))
+ }
+
+const [portalLoading, setPortalLoading] = useState(false)
+  const manageBilling = async () => {
+    setPortalLoading(true)
+    try {
+      const res = await fetch('/api/portal', { method: 'POST' })
+      const data = await res.json()
+      if (data.url) window.location.href = data.url
+      else alert(data.error || 'Could not open billing portal.')
+    } catch (err: any) {
+      alert('Could not open billing portal: ' + err.message)
+    } finally {
+      setPortalLoading(false)
+    }
   }
 
   const lbl: any = { fontSize: 16, fontWeight: 500, color: '#0F172A', display: 'block', marginBottom: 6 }
@@ -614,6 +629,12 @@ const freeRemaining = profile ? Math.max(0, 5 - (profile.applications_used_month
                   <Crown size={13}/>Upgrade to Pro — £12.99/month
                 </button>
               )}
+{profile?.plan !== 'free' && (
+                <button onClick={manageBilling} disabled={portalLoading} style={{ background: 'transparent', border: '1px solid #BFDBFE', padding: '10px 20px', borderRadius: 8, fontSize: 17, fontWeight: 500, cursor: portalLoading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'inherit', color: '#0F172A' }}>
+                  {portalLoading ? <Loader size={13} style={{ animation: 'spin 1s linear infinite' }}/> : <Settings size={13}/>}
+                  Manage billing / Cancel subscription
+                </button>
+              )}s
             </div>
 
             {/* Auto-apply email setup */}
