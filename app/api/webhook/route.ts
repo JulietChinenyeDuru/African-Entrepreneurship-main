@@ -21,34 +21,44 @@ export async function POST(req: NextRequest) {
     case 'customer.subscription.created':
     case 'customer.subscription.updated': {
       const sub = event.data.object as Stripe.Subscription
-      const userId = sub.metadata.userId
-      if (!userId) break
+      const customerId = sub.customer as string
       const isActive = ['active', 'trialing'].includes(sub.status)
-      // Determine plan based on price ID
       const priceId = sub.items.data[0]?.price.id
       const plan = priceId === process.env.STRIPE_AFRICA_PRICE_ID ? 'global'
                  : isActive ? 'pro' : 'free'
-      await supabase.from('profiles')
+
+      const { data, error } = await supabase.from('profiles')
         .update({ plan, stripe_subscription_id: sub.id })
-        .eq('id', userId)
+        .eq('stripe_customer_id', customerId)
+        .select()
+
+      if (error) {
+        console.error('[webhook] Supabase update failed:', error.message)
+      } else if (!data || data.length === 0) {
+        console.error(
+          `[webhook] No profile found for stripe_customer_id=${customerId}. ` +
+          `sub=${sub.id} plan=${plan}. This subscriber needs manual review.`
+        )
+      }
       break
     }
     case 'customer.subscription.deleted': {
       const sub = event.data.object as Stripe.Subscription
-      const userId = sub.metadata.userId
-      if (!userId) break
-      await supabase.from('profiles')
+      const customerId = sub.customer as string
+      const { error } = await supabase.from('profiles')
         .update({ plan: 'free', stripe_subscription_id: null })
-        .eq('id', userId)
+        .eq('stripe_customer_id', customerId)
+      if (error) console.error('[webhook] Supabase update failed:', error.message)
       break
     }
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session
       const userId = session.metadata?.userId
       if (!userId || !session.customer) break
-      await supabase.from('profiles')
+      const { error } = await supabase.from('profiles')
         .update({ stripe_customer_id: session.customer as string })
         .eq('id', userId)
+      if (error) console.error('[webhook] Supabase update failed:', error.message)
       break
     }
   }
