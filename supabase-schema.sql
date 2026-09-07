@@ -1,6 +1,6 @@
 -- ============================================================
--- ApplyAI (jobapp.best) — Complete Supabase Schema
--- Run this in Supabase SQL Editor
+-- ApplyAI (jobapp.best) Supabase Schema
+-- Ran this in my Supabase SQL Editor
 -- ============================================================
 
 create extension if not exists "uuid-ossp";
