@@ -109,7 +109,7 @@ Pricing Plans
 | Plan | Price | Applications | Target Market |
 |------|-------|-------------|---------------|
 | Free | £0 | 5 to get started | Everyone |
-| Pro | £12.99/month | 100/month | UK job seekers |
+| Pro | £12.99/month | 100/month | International job seekers |
 | Global | £4.99/month | 30/month | African job seekers |
 
 ---
