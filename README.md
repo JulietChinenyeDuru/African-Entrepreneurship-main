@@ -137,6 +137,24 @@ Request tracing across the application for performance diagnostics
 
 This setup allows continuous visibility into production health without relying solely on third-party uptime tools, reflecting a production-grade DevOps approach to running an independently built AI product.
 
+Docker Container showing the three monitoring tools ( Grafana, Prometheus, and Zipkin
+
+<img width="1027" height="648" alt="image" src="https://github.com/user-attachments/assets/a3cc1fb3-d658-4421-b2ad-1da125781c91" />
+
+
+Live Prometheus scrape targets confirming healthy, actively monitored services for JobApp AI's production backend.
+
+<img width="1012" height="678" alt="image" src="https://github.com/user-attachments/assets/910b6bfc-e0cc-497e-9323-a6bc7e140b92" />
+
+
+Custom Grafana dashboard visualising real-time uptime for JobApp AI's monitored services.
+
+<img width="1028" height="528" alt="image" src="https://github.com/user-attachments/assets/432ad861-06bd-45d3-aedc-4694b161ab67" />
+
+
+Distributed Tracing:  Zipkin
+
+<img width="1038" height="479" alt="image" src="https://github.com/user-attachments/assets/cd4848d8-3e6d-4c75-bb0e-30b93313c54d" />
 
 Stripe (Payments)
 ---
