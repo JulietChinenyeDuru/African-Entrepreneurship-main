@@ -11,10 +11,15 @@ ApplyAI is a full-stack SaaS platform that uses Claude AI to tailor CVs and cove
 Product Overview
 
 Job seekers waste hours manually tailoring CVs for every application. ApplyAI solves this by:
+
 Tailoring CVs to match job descriptions using AI
+
 Generating cover letters customised for each role
+
 Preparing interview questions based on the job and candidate profile
+
 ATS keyword optimisation to pass automated screening systems
+
 Auto-apply via email to recruiters directly from the platform
 
 <img width="1887" height="962" alt="image" src="https://github.com/user-attachments/assets/00019752-2f6c-410e-a786-97eaa9cb1402" />
