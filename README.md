@@ -4,7 +4,9 @@ ApplyAI: AI-Powered Job Application Platform
 
 ApplyAI is a full-stack SaaS platform that uses Claude AI to tailor CVs and cover letters to every job in seconds, generate interview preparation, and help job seekers land more interviews.
 
----
+
+<img width="1901" height="962" alt="image" src="https://github.com/user-attachments/assets/814657b0-1d49-499e-855b-5365678d46dc" />
+
 
 Product Overview
 
