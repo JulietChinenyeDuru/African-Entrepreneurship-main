@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import client from 'prom-client';
+import { tracer } from '@/lib/tracer';
 
 const globalForMetrics = global as unknown as {
   register: client.Registry | undefined;
@@ -13,11 +14,23 @@ if (!globalForMetrics.register) {
 }
 
 export async function GET() {
-  const metrics = await register.metrics();
-  return new NextResponse(metrics, {
-    status: 200,
-    headers: {
-      'Content-Type': register.contentType,
-    },
+  return tracer.scoped(async () => {
+    const traceId = tracer.createRootId();
+    tracer.setId(traceId);
+    tracer.recordServiceName('jobapp-ai');
+    tracer.recordRpc('GET');
+    tracer.recordAnnotation(new (require('zipkin').Annotation.ServerRecv)());
+    tracer.recordBinary('http.path', '/api/metrics');
+
+    const metrics = await register.metrics();
+
+    tracer.recordAnnotation(new (require('zipkin').Annotation.ServerSend)());
+
+    return new NextResponse(metrics, {
+      status: 200,
+      headers: {
+        'Content-Type': register.contentType,
+      },
+    });
   });
 }

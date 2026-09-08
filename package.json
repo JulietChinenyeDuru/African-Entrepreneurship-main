@@ -23,7 +23,9 @@
     "prom-client": "^15.1.3",
     "react": "18.3.0",
     "react-dom": "18.3.0",
-    "stripe": "^15.7.0"
+    "stripe": "^15.7.0",
+    "zipkin": "^0.22.0",
+    "zipkin-transport-http": "^0.22.0"
   },
   "devDependencies": {
     "@types/node": "^20",
