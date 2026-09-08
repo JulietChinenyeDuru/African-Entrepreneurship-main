@@ -116,6 +116,27 @@ Supabase (PostgreSQL)
 └── Subscription data
 
 ↓
+Monitoring and observability
+
+
+
+Monitoring & Observability
+
+JobApp AI is backed by a full observability stack to ensure production reliability and fast incident detection — going beyond basic uptime checks into real metrics, dashboards, and distributed tracing.
+
+Stack:
+
+<img width="1060" height="411" alt="image" src="https://github.com/user-attachments/assets/022a3a83-3794-4a6e-9e8b-cddfc81b2fb2" />
+
+
+What's monitored:
+
+API uptime and health (jobapp-ai, prometheus, pushgateway targets — all reporting healthy)
+Real-time service availability, visualized on a dedicated Grafana dashboard
+Request tracing across the application for performance diagnostics
+
+This setup allows continuous visibility into production health without relying solely on third-party uptime tools, reflecting a production-grade DevOps approach to running an independently built AI product.
+
 
 Stripe (Payments)
 ---
