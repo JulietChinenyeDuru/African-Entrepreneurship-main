@@ -18,37 +18,39 @@ Auto-apply via email to recruiters directly from the platform
 ---
 
  Impact
+ 
+Serving job seekers worldwide, with confirmed usage across 10+ countries demonstrating genuine international market reach for the product
+A dedicated Global plan (£4.99/month), deliberately priced below the standard Pro tier to make AI-powered job tools commercially accessible to users in Africa and other underserved regions evidence of product design driven by market need, not just technical capability
+A free tier available to all users, supporting adoption and organic growth ahead of monetization
+Independently designed, built, secured, and monitored end-to-end — from AI-driven CV/cover-letter generation and multi-source job aggregation (Reed, Adzuna, Jooble) to a production-grade security audit and full observability stack (Prometheus, Grafana, Zipkin) — reflecting sole ownership of the full technical and commercial lifecycle
 
-- Serving job seekers in the **UK and Africa**
-- Special **Global plan at £4.99/month** making AI job tools accessible to African job seekers
-- Free plan available for everyone to get started
-
----
 
 Tech Stack
 
-| Layer | Technology |
+| Layer          | Technology |
 |-------|-----------|
-| Frontend | Next.js 14, React, TypeScript |
-| Backend | Next.js API Routes, Node.js |
-| AI Engine | Anthropic Claude (Sonnet + Haiku) |
-| Database | Supabase (PostgreSQL) |
+| Frontend       | Next.js 14, React, TypeScript |
+| Backend        | Next.js API Routes, Node.js |
+| AI Engine      | Anthropic Claude (Sonnet + Haiku) |
+| Database       | Supabase (PostgreSQL) |
 | Authentication | Supabase Auth (Google OAuth + Email) |
-| Payments | Stripe (subscription billing) |
-| Deployment | Vercel |
-| Monitoring | Google Analytics, UptimeRobot |
+| Payments       | Stripe (subscription billing) |
+| Deployment     | Vercel |
+| Monitoring     | Google Analytics, UptimeRobot |prometheus, Grafana, Zipkin|
 
----
 
 Key Features
 
 For Job Seekers
-CV Tailoring: Upload CV once, AI rewrites it for every job
-Cover Letter Generation: Personalised cover letters in seconds
-Interview Preparation Likely questions, talking points, questions to ask
-ATS Analysis: Keyword matching and scoring
-Application History: Save and revisit all past applications
-Auto-Apply: Send applications via email automatically
+
+AI-Powered CV Tailoring; Job seekers upload a CV once; the platform uses the Anthropic API (Claude) to dynamically rewrite and re-optimize it for each individual job posting, rather than relying on a static template
+AI-Generated Cover Letters: Personalised, context-aware cover letters generated in seconds, tailored to the specific role and employer
+AI Interview Preparation :  Generates likely interview questions, suggested talking points, and questions for the candidate to ask, based on the job description and CV
+ATS Analysis: Automated keyword matching and scoring against Applicant Tracking Systems, improving candidates' visibility to employers
+Application History Tracking:  Persistent storage (via Supabase) of all past applications, enabling users to manage and revisit their job search over time
+
+JobApp AI:  Technical Innovation Overview
+JobApp AI is an independently designed and built AI-powered job application platform that goes beyond simple automation, integrating a multi-step AI pipeline to solve a genuine problem in the job search process. Rather than offering a static CV template or a single-prompt wrapper around a language model, the platform combines CV parsing, contextual tailoring, ATS-style scoring, and automated application submission into a cohesive end-to-end product. At its core, JobApp AI leverages the Anthropic API (Claude) to dynamically generate tailored CVs, cover letters, and interview preparation content specific to each job posting — demonstrating applied, production-grade use of large language models rather than superficial integration. The following features illustrate the technical depth and innovation embedded in the platform:
 
 Platform
 Google OAuth + Email authentication
