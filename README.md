@@ -47,16 +47,16 @@ Key Features
 
 For Job Seekers
 
-AI-Powered CV Tailoring; Job seekers upload a CV once; the platform uses the Anthropic API (Claude) to dynamically rewrite and re-optimize it for each individual job posting, rather than relying on a static template
+	AI-Powered CV Tailoring: Job seekers upload a CV once; the platform uses the Anthropic API (Claude) to dynamically rewrite and re-optimize it for each individual job posting, rather than relying on a static template
 
-AI-Generated Cover Letters: Personalised, context-aware cover letters generated in seconds, tailored to the specific role and employer
+	AI-Generated Cover Letters: Personalized, context-aware cover letters generated in seconds, tailored to the specific role and employer
 
-AI Interview Preparation :  Generates likely interview questions, suggested talking points, and questions for the candidate to ask, based on the job description and CV
+	AI Interview Preparation: Generates likely interview questions, suggested talking points, and questions for the candidate to ask, based on the job description and CV
 
-ATS Analysis: Automated keyword matching and scoring against Applicant Tracking Systems, improving candidates' visibility to employers
-Application History Tracking:  Persistent storage (via Supabase) of all past applications, enabling users to manage and revisit their job search over time
+	ATS Analysis: Automated keyword matching and scoring against Applicant Tracking Systems, improving candidates' visibility to employers. Application History Tracking: Persistent storage (Through Supabase) of all past applications, enabling users to manage and revisit their job search over time
 
-JobApp AI:  Technical Innovation Overview
+
+Technical Innovation 
 
 JobApp AI is an independently designed and built AI-powered job application platform that goes beyond simple automation, integrating a multi-step AI pipeline to solve a genuine problem in the job search process. Rather than offering a static CV template or a single-prompt wrapper around a language model, the platform combines CV parsing, contextual tailoring, ATS-style scoring, and automated application submission into a cohesive end-to-end product. At its core, JobApp AI leverages the Anthropic API (Claude) to dynamically generate tailored CVs, cover letters, and interview preparation content specific to each job posting — demonstrating applied, production-grade use of large language models rather than superficial integration. The following features illustrate the technical depth and innovation embedded in the platform:
 
