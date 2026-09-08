@@ -18,6 +18,7 @@ Auto-apply via email to recruiters directly from the platform
 ---
 
  Impact
+ 
 •	Serving job seekers worldwide, with confirmed usage across 10+ countries demonstrating genuine international market reach for the product
 
 •	A dedicated Global plan (£4.99/month), deliberately priced below the standard Pro tier to make AI-powered job tools commercially accessible to users in Africa and other underserved regions evidence of product design driven by market need, not just technical capability
