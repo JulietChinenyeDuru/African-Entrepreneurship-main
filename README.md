@@ -25,7 +25,7 @@ Auto-apply via email to recruiters directly from the platform
 
 •	A free tier available to all users, supporting adoption and organic growth ahead of monetization
 
-•	Independently designed, built, secured, and monitored end-to-end — from AI-driven CV/cover-letter generation and multi-source job aggregation (Reed, Adzuna, Jooble) to a production-grade security audit and full observability stack (Prometheus, Grafana, Zipkin) — reflecting sole ownership of the full technical and commercial lifecycle
+•	Independently designed, built, secured, and monitored end-to-end, from AI-driven CV/cover-letter generation and multi-source job aggregation (Reed, Adzuna, Jooble) to a production-grade security audit and full observability stack (Prometheus, Grafana, Zipkin), reflecting sole ownership of the full technical and commercial lifecycle
 
 
 
