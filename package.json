@@ -35,5 +35,37 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.0",
     "typescript": "^5"
+  },
+  "overrides": {
+    "autoprefixer": {
+      "nanoid": "5.1.16"
+    },
+    "docx": {
+      "nanoid": "5.1.16"
+    },
+    "nanoid": {
+      "nanoid": "5.1.16"
+    },
+    "next": {
+      "nanoid": "5.1.16"
+    },
+    "postcss": {
+      "nanoid": "5.1.16"
+    },
+    "postcss-import": {
+      "nanoid": "5.1.16"
+    },
+    "postcss-js": {
+      "nanoid": "5.1.16"
+    },
+    "postcss-load-config": {
+      "nanoid": "5.1.16"
+    },
+    "postcss-nested": {
+      "nanoid": "5.1.16"
+    },
+    "tailwindcss": {
+      "nanoid": "5.1.16"
+    }
   }
 }
