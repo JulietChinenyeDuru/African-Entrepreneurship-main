@@ -17,6 +17,9 @@ Preparing interview questions based on the job and candidate profile
 ATS keyword optimisation to pass automated screening systems
 Auto-apply via email to recruiters directly from the platform
 
+<img width="1887" height="962" alt="image" src="https://github.com/user-attachments/assets/00019752-2f6c-410e-a786-97eaa9cb1402" />
+
+
 ---
 
  Impact
